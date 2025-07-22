@@ -8,6 +8,7 @@ import 'package:toastification/toastification.dart';
 import 'package:duelduck_solana/bloc/connectivity_cubit/connectivity_cubit.dart';
 import 'package:duelduck_solana/ui/screen_factory.dart';
 import 'package:duelduck_solana/ui/screens/routing.dart';
+import 'package:duelduck_solana/utils/constants.dart';
 
 class MyApp extends StatefulWidget {
   final ScreenFactory screenFactory;
@@ -61,6 +62,7 @@ class _MyAppState extends State<MyApp> {
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
+          theme: themeData,
         ),
       ),
     );

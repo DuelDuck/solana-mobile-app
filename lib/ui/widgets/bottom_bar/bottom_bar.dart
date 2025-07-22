@@ -33,13 +33,20 @@ class BottomBarState extends State<BottomBar> {
       ),
       child: Material(
         elevation: 5,
-        child: BottomNavigationBar(
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          type: BottomNavigationBarType.fixed,
-          items: getTabs(),
-          currentIndex: currentIndex,
-          onTap: (index) => changeTab(index),
+        color: ProjectColors.backgroundBlack,
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
+          ),
+          child: BottomNavigationBar(
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            type: BottomNavigationBarType.fixed,
+            items: getTabs(),
+            currentIndex: currentIndex,
+            onTap: (index) => changeTab(index),
+          ),
         ),
       ),
     );
@@ -51,7 +58,10 @@ class BottomBarState extends State<BottomBar> {
   }) {
     return BottomNavigationBarItem(
       icon: SvgPicture.asset(sourceSVG),
-      activeIcon: SvgPicture.asset(sourceSVG),
+      activeIcon: SvgPicture.asset(
+        sourceSVG.replaceAll(".", ProjectConstants.bottomBarStatusActive),
+      ),
+
       label: label.tr(),
     );
   }
