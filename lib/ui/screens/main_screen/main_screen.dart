@@ -1,3 +1,4 @@
+import 'package:duelduck_solana/ui/widgets/bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -41,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         title: Text(widget.title),
       ),
+      bottomNavigationBar: BottomBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
