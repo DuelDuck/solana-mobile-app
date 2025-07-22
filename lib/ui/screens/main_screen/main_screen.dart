@@ -1,5 +1,7 @@
-import 'package:duelduck_solana/ui/widgets/bottom_bar/bottom_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import 'package:duelduck_solana/ui/widgets/bottom_bar/bottom_bar.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -8,6 +10,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),

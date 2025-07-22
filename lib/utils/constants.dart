@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class ProjectConstants {}
 
@@ -13,7 +13,25 @@ class ProjectSource {
       "assets/images/bottom_bar/bottom_bar_profile.svg";
 }
 
-class ProjectFonts {}
+class ProjectFonts {
+  static const TextStyle headerRegular = TextStyle(
+    fontFamily: "Bungee",
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
+  static const TextStyle bodySemibold = TextStyle(
+    fontFamily: "Poppins",
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  );
+  static const TextStyle bodyRegular = TextStyle(
+    fontFamily: "Poppins",
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
+}
 
 class ProjectColors {
   static const Color backgroundBlack = Color(0xff070707);
