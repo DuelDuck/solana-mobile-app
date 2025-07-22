@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
+import 'package:duelduck_solana/ui/screens/routing.dart';
 import 'package:duelduck_solana/utils/constants.dart';
 
 class BottomBar extends StatefulWidget {
@@ -76,46 +78,46 @@ class BottomBarState extends State<BottomBar> {
   }
 
   changeTab(int index) {
-    // switch (index) {
-    //   case 0:
-    //     context.go(AppRouter.allChats);
-    //     break;
+    switch (index) {
+      case 0:
+        context.go(AppRouter.home);
+        break;
 
-    //   case 1:
-    //     context.go(AppRouter.allCalls);
-    //     break;
+      case 1:
+        context.go(AppRouter.duels);
+        break;
 
-    //   case 2:
-    //     context.go(AppRouter.contacts);
-    //     break;
+      case 2:
+        context.go(AppRouter.addDuel);
+        break;
 
-    //   case 3:
-    //     context.go(AppRouter.profile);
-    //     break;
+      case 3:
+        context.go(AppRouter.profile);
+        break;
 
-    //   default:
-    //     context.go(AppRouter.allChats);
-    //     break;
-    // }
+      default:
+        context.go(AppRouter.home);
+        break;
+    }
 
-    // setState(() => currentIndex = index);
+    setState(() => currentIndex = index);
   }
 
   int indexCurrentRoute() {
-    // String currentRoute =
-    //     GoRouter.of(
-    //       context,
-    //     ).routeInformationProvider.value.uri.toString().toLowerCase();
+    String currentRoute =
+        GoRouter.of(
+          context,
+        ).routeInformationProvider.value.uri.toString().toLowerCase();
 
-    // if (currentRoute.contains(AppRouter.allChats.toLowerCase())) {
-    //   return 0;
-    // }
-    // if (currentRoute.contains(AppRouter.allCalls.toLowerCase())) {
-    //   return 1;
-    // }
-    // if (currentRoute.contains(AppRouter.profile.toLowerCase())) {
-    //   return 2;
-    // }
+    if (currentRoute.contains(AppRouter.home.toLowerCase())) {
+      return 0;
+    }
+    if (currentRoute.contains(AppRouter.duels.toLowerCase())) {
+      return 1;
+    }
+    if (currentRoute.contains(AppRouter.addDuel.toLowerCase())) {
+      return 2;
+    }
 
     return 0;
   }
