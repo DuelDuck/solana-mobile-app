@@ -15,6 +15,9 @@ class ProjectSource {
       "assets/images/bottom_bar/bottom_bar_add.svg";
   static const String bottomBarProfile =
       "assets/images/bottom_bar/bottom_bar_profile.svg";
+  static const String logoCircle = "assets/images/logo/logo.png";
+  static const String iconWallet = "assets/images/icon_wallet.png";
+  static const String logOut = "assets/images/logout.png";
 }
 
 class ProjectFonts {
@@ -41,6 +44,7 @@ class ProjectColors {
   static const Color backgroundBlack = Color(0xff070707);
   static const Color grey = Color(0xffA7A7A7);
   static const Color black = Color(0xff151515);
+  static const Color greyBlack = Color(0xff212121);
   static const Color yellow = Color(0xffFFC54D);
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:duelduck_solana/ui/widgets/app_bar/custom_app_bar.dart';
 import 'package:duelduck_solana/ui/widgets/bottom_bar/bottom_bar.dart';
 
 class MainScreen extends StatefulWidget {
@@ -14,8 +15,9 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      appBar: CustomAppBar(
+        nameWallet: "xdcftvygbuhnij", //TODO: name
+        onTapLogOut: () {},
       ),
       body: widget.child,
       bottomNavigationBar: BottomBar(),
