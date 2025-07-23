@@ -18,5 +18,10 @@
     "add_duel_screen_item_commission_description": "Write your question so that the answer is only yes or no. Keep it short and simple.",
     "add_duel_screen_item_commission_hint": "Custom commission",
     "add_duel_screen_field_chars_counter": "chars",
-    "add_duel_screen_date_time_picker_initial": "Select date and time"
+    "add_duel_screen_date_time_picker_initial": "Select date and time",
+    "app_name": "Duel Duck",
+    "bottom_bar_label_home": "Home",
+    "bottom_bar_label_duels": "Duels",
+    "bottom_bar_label_add_duel": "Add duel",
+    "bottom_bar_label_profile": "Profile"
 }

@@ -3,9 +3,8 @@ import 'dart:io';
 import 'package:duelduck_solana/ui/screens/add_duel/widgets/date_time_picker_button.dart';
 import 'package:duelduck_solana/ui/screens/add_duel/widgets/expandable_section.dart';
 import 'package:duelduck_solana/ui/screens/add_duel/widgets/selectable_tabs.dart';
-import 'package:duelduck_solana/ui/widgets/custom_text.dart';
 import 'package:duelduck_solana/ui/widgets/custom_text_field.dart';
-import 'package:duelduck_solana/ui/widgets/gradient_text.dart';
+import 'package:duelduck_solana/ui/widgets/text/custom_text.dart';
 import 'package:duelduck_solana/utils/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -43,11 +42,9 @@ class _AddDuelScreenState extends State<AddDuelScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 24),
-                  GradientText(
+                  CustomText.basic(
                     text: "add_duel_screen_header".tr().toUpperCase(),
-                    textStyle: ProjectFonts.headerRegular.copyWith(
-                      fontSize: 22,
-                    ),
+                    style: ProjectFonts.headerRegular.copyWith(fontSize: 22),
                   ),
                   const SizedBox(height: 24),
                   ExpandableSection(

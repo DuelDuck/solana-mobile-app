@@ -1,4 +1,4 @@
-import 'package:duelduck_solana/ui/widgets/custom_text.dart';
+import 'package:duelduck_solana/ui/widgets/text/custom_text.dart';
 import 'package:duelduck_solana/utils/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
