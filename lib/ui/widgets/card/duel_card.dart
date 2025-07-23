@@ -144,6 +144,13 @@ class _DuelCardState extends State<DuelCard> {
                         fontSize: 20,
                       ),
                     ),
+                    if (widget.selectedVotingButton == "vote_button_no".tr())
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: SvgPicture.asset(
+                          ProjectSource.selectedVoteButton,
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -180,6 +187,13 @@ class _DuelCardState extends State<DuelCard> {
                         fontSize: 20,
                       ),
                     ),
+                    if (widget.selectedVotingButton == "vote_button_yes".tr())
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: SvgPicture.asset(
+                          ProjectSource.selectedVoteButton,
+                        ),
+                      ),
                   ],
                 ),
               ),

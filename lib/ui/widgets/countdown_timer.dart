@@ -43,7 +43,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
               height: 20,
               width: 20,
               child: CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.primary,
+                color: ProjectColors.primaryYellow,
                 strokeWidth: 2,
               ),
             ),

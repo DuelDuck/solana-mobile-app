@@ -44,13 +44,16 @@ class _PublishDuelState extends State<PublishDuel> {
                       colors: [Colors.white, ProjectColors.gradientGrey],
                     ),
                   ),
-                  const SizedBox(height: 12),
-                  CustomText.basic(
-                    text: "add_duel_screen_publish_description".tr(),
-                    style: ProjectFonts.bodyRegular.copyWith(
-                      color: ProjectColors.grey,
+
+                  if (!_isPublished) ...[
+                    const SizedBox(height: 12),
+                    CustomText.basic(
+                      text: "add_duel_screen_publish_description".tr(),
+                      style: ProjectFonts.bodyRegular.copyWith(
+                        color: ProjectColors.grey,
+                      ),
                     ),
-                  ),
+                  ],
                   const SizedBox(height: 24),
                   DuelCard(
                     createDuelModel: widget.createDuelModel,

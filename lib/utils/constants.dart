@@ -14,7 +14,8 @@ class ProjectSource {
   static const String usdcIcon = "assets/icons/usdc_icon.svg";
   static const String shareIcon = "assets/icons/share_icon.svg";
   static const String duckIcon = "assets/icons/duck_icon.svg";
-
+  static const String selectedVoteButton =
+      "assets/icons/selected_vote_button_icon.svg";
   static const String bottomBarHomeIcon =
       "assets/icons/bottom_bar/bottom_bar_home.svg";
   static const String bottomBarHomeIconActiveIcon =
