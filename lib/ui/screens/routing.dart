@@ -10,8 +10,6 @@ final parentNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
-  // static const String splash = '/';
-
   static const String noInternetConnection = '/noInternetConnection';
 
   static const String home = '/home';
