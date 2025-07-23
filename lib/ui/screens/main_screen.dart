@@ -1,3 +1,5 @@
+import 'package:duelduck_solana/ui/screens/add_duel/add_duel_screen.dart';
+import 'package:duelduck_solana/utils/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -7,14 +9,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      theme: ThemeData(scaffoldBackgroundColor: ProjectColors.backgroundDark),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: AddDuelScreen(),
     );
   }
 }

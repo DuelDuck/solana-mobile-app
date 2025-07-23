@@ -1,3 +1,22 @@
 {
-    
+    "add_duel_screen_header": "create a duel",
+    "add_duel_screen_item_question": "Type your question",
+    "add_duel_screen_item_question_description": "Write your question so that the answer is only yes or no. Keep it short and simple.",
+    "add_duel_screen_item_question_hint": "e.g.: Will Bitcoin cost $200k by 2026?",
+    "add_duel_screen_item_deadline": "Deadline",
+    "add_duel_screen_item_deadline_description": "Write your question so that the answer is only yes or no. Keep it short and simple.",
+    "add_duel_screen_item_resolves": "Who resolves duel",
+    "add_duel_screen_item_resolves_description": "Write your question so that the answer is only yes or no. Keep it short and simple.",
+    "add_duel_screen_item_resolves_you_tab": "You",
+    "add_duel_screen_item_resolves_duel_duck_tab": "Duel Duck",
+    "add_duel_screen_item_resolves_duel_duck_description": "Add source of true. It is needed to check the final result. For example: coinmarketcap.com/. Don’t use vague links like google.com",
+    "add_duel_screen_item_resolves_duel_duck_hint": "coinmarketcap.com",
+    "add_duel_screen_item_price": "Ticket Price",
+    "add_duel_screen_item_price_description": "Write your question so that the answer is only yes or no. Keep it short and simple.",
+    "add_duel_screen_item_price_hint": "Custom price",
+    "add_duel_screen_item_commission": "Fee",
+    "add_duel_screen_item_commission_description": "Write your question so that the answer is only yes or no. Keep it short and simple.",
+    "add_duel_screen_item_commission_hint": "Custom commission",
+    "add_duel_screen_field_chars_counter": "chars",
+    "add_duel_screen_date_time_picker_initial": "Select date and time"
 }
