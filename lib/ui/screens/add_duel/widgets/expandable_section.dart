@@ -1,7 +1,8 @@
-import 'package:duelduck_solana/ui/widgets/animation/animated_clip_rect.dart';
-import 'package:duelduck_solana/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import 'package:duelduck_solana/ui/widgets/animation/animated_clip_rect.dart';
+import 'package:duelduck_solana/utils/constants.dart';
 
 class ExpandableSection extends StatefulWidget {
   final String title;
@@ -43,7 +44,7 @@ class _ExpandableSectionState extends State<ExpandableSection>
           },
           child: Container(
             decoration: BoxDecoration(
-              color: ProjectColors.backgroundSecondaryDark,
+              color: ProjectColors.black,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15),
                 topRight: Radius.circular(15),
@@ -87,7 +88,7 @@ class _ExpandableSectionState extends State<ExpandableSection>
           child: Container(
             padding: EdgeInsets.only(bottom: 25, left: 16, right: 16),
             decoration: BoxDecoration(
-              color: ProjectColors.backgroundSecondaryDark,
+              color: ProjectColors.black,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(15),
                 bottomRight: Radius.circular(15),

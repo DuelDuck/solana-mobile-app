@@ -42,7 +42,7 @@ class _SelectableTabsState extends State<SelectableTabs> {
                   vertical: 8,
                 ),
                 decoration: BoxDecoration(
-                  color: ProjectColors.backgroundSecondaryDark,
+                  color: ProjectColors.black,
                   border: Border.all(
                     color:
                         isSelected

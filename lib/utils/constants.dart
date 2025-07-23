@@ -12,6 +12,9 @@ class ProjectSource {
   static const String closeIcon = "assets/icons/close_icon.svg";
   static const String calendarIcon = "assets/icons/calendar_icon.svg";
   static const String usdcIcon = "assets/icons/usdc_icon.svg";
+  static const String shareIcon = "assets/icons/share_icon.svg";
+  static const String duckIcon = "assets/icons/duck_icon.svg";
+
   static const String bottomBarHome =
       "assets/images/bottom_bar/bottom_bar_home.svg";
   static const String bottomBarHomeActive =
@@ -62,38 +65,38 @@ class ProjectFonts {
 class ProjectColors {
   static const Color backgroundDark = Color(0xff070707);
   static const Color gradientGrey = Color(0xff686666);
-  static const Color backgroundSecondaryDark = Color(0xff151515);
   static const Color grey = Color(0xffA7A7A7);
   static const Color primaryYellow = Color(0xffFFC54D);
   static const Color greySecondary = Color(0xff2e302e);
   static const Color greyBorder = Color(0xff2c2c2c);
-  static const Color backgroundBlack = Color(0xff070707);
   static const Color black = Color(0xff151515);
   static const Color greyBlack = Color(0xff212121);
+  static const Color red = Color(0xffF6762E);
+  static const Color green = Color(0xffB0D356);
 }
 
 final ThemeData themeData = ThemeData(
   colorScheme: ColorScheme.fromSeed(seedColor: ProjectColors.primaryYellow),
   appBarTheme: AppBarTheme(
-    backgroundColor: ProjectColors.backgroundBlack,
+    backgroundColor: ProjectColors.backgroundDark,
     surfaceTintColor: Colors.transparent,
   ),
   bottomSheetTheme: const BottomSheetThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
     ),
-    backgroundColor: ProjectColors.backgroundBlack,
+    backgroundColor: ProjectColors.backgroundDark,
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     elevation: 0,
     type: BottomNavigationBarType.fixed,
     showUnselectedLabels: true,
-    backgroundColor: ProjectColors.black,
+    backgroundColor: ProjectColors.greyBlack,
     selectedItemColor: ProjectColors.primaryYellow,
     unselectedItemColor: ProjectColors.grey,
     selectedLabelStyle: ProjectFonts.bodyRegular.copyWith(fontSize: 12),
     unselectedLabelStyle: ProjectFonts.bodyRegular.copyWith(fontSize: 12),
   ),
   useMaterial3: true,
-  scaffoldBackgroundColor: ProjectColors.backgroundBlack,
+  scaffoldBackgroundColor: ProjectColors.backgroundDark,
 );

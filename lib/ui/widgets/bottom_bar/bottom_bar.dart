@@ -33,7 +33,7 @@ class BottomBarState extends State<BottomBar> {
       ),
       child: Material(
         elevation: 5,
-        color: ProjectColors.backgroundBlack,
+        color: ProjectColors.backgroundDark,
         child: ClipRRect(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(15.0),
