@@ -5,14 +5,17 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:duelduck_solana/ui/screens/main_screen.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_test/flutter_test.dart';
+
+import 'package:duelduck_solana/ui/screen_factory.dart';
+import 'package:duelduck_solana/ui/screens/app.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const MyApp(screenFactory: ScreenFactory()));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

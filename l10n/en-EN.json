@@ -1,3 +1,7 @@
 {
-    
+  "app_name": "Duel Duck",
+  "bottom_bar_label_home": "Home",
+  "bottom_bar_label_duels": "Duels",
+  "bottom_bar_label_add_duel": "Add duel",
+  "bottom_bar_label_profile": "Profile"
 }
