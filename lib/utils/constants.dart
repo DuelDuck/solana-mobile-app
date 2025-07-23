@@ -15,16 +15,17 @@ class ProjectSource {
   static const String shareIcon = "assets/icons/share_icon.svg";
   static const String duckIcon = "assets/icons/duck_icon.svg";
 
-  static const String bottomBarHome =
-      "assets/images/bottom_bar/bottom_bar_home.svg";
-  static const String bottomBarHomeActive =
-      "assets/images/bottom_bar/bottom_bar_home_active.svg";
-  static const String bottomBarDuels =
-      "assets/images/bottom_bar/bottom_bar_duels.svg";
-  static const String bottomBarAddDuel =
-      "assets/images/bottom_bar/bottom_bar_add.svg";
-  static const String bottomBarProfile =
-      "assets/images/bottom_bar/bottom_bar_profile.svg";
+  static const String bottomBarHomeIcon =
+      "assets/icons/bottom_bar/bottom_bar_home.svg";
+  static const String bottomBarHomeIconActiveIcon =
+      "assets/icons/bottom_bar/bottom_bar_home_active.svg";
+  static const String bottomBarDuelsIcon =
+      "assets/icons/bottom_bar/bottom_bar_duels.svg";
+  static const String bottomBarAddDuelIcon =
+      "assets/icons/bottom_bar/bottom_bar_add.svg";
+  static const String bottomBarProfileIcon =
+      "assets/icons/bottom_bar/bottom_bar_profile.svg";
+
   static const String logoCircle = "assets/images/logo/logo.png";
   static const String iconWallet = "assets/images/icon_wallet.png";
   static const String logOut = "assets/images/logout.png";

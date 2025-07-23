@@ -70,19 +70,19 @@ class BottomBarState extends State<BottomBar> {
     return [
       _buildNavigationItem(
         label: "bottom_bar_label_home",
-        sourceSVG: ProjectSource.bottomBarHome,
+        sourceSVG: ProjectSource.bottomBarHomeIcon,
       ),
       _buildNavigationItem(
         label: "bottom_bar_label_duels",
-        sourceSVG: ProjectSource.bottomBarDuels,
+        sourceSVG: ProjectSource.bottomBarDuelsIcon,
       ),
       _buildNavigationItem(
         label: "bottom_bar_label_add_duel",
-        sourceSVG: ProjectSource.bottomBarAddDuel,
+        sourceSVG: ProjectSource.bottomBarAddDuelIcon,
       ),
       _buildNavigationItem(
         label: "bottom_bar_label_profile",
-        sourceSVG: ProjectSource.bottomBarProfile,
+        sourceSVG: ProjectSource.bottomBarProfileIcon,
       ),
     ];
   }
