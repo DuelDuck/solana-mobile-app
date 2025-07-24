@@ -47,5 +47,7 @@
     "duel_card_button_cancelled": "duel was cancelled",
     "duel_card_button_yes_won": "yes won",
     "duel_card_button_no_won": "No won",
-    "duel_card_wating_for_result_title": "You need to pick who wins"
+    "duel_card_wating_for_result_title": "You need to pick who wins",
+    "no_internet_connection_screen_title": "NO CONNECTION",
+    "no_internet_connection_screen_subtitle": "Please you internet connection and try again"
 }
