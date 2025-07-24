@@ -24,7 +24,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: CustomText.title(
         text: "app_name".tr(),
-        color: ProjectColors.yellow,
+        color: ProjectColors.primaryYellow,
       ),
       actions: [
         Container(

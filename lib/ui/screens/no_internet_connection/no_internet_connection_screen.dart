@@ -24,7 +24,7 @@ class NoInternetConnectionScreen extends StatelessWidget {
             ),
             CustomText.title(
               text: "app_name".tr(),
-              color: ProjectColors.yellow,
+              color: ProjectColors.primaryYellow,
             ),
           ],
         ),
