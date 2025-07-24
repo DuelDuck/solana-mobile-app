@@ -33,7 +33,7 @@ class BottomBarState extends State<BottomBar> {
       ),
       child: Material(
         elevation: 5,
-        color: ProjectColors.backgroundBlack,
+        color: ProjectColors.backgroundDark,
         child: ClipRRect(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(15.0),
@@ -70,19 +70,19 @@ class BottomBarState extends State<BottomBar> {
     return [
       _buildNavigationItem(
         label: "bottom_bar_label_home",
-        sourceSVG: ProjectSource.bottomBarHome,
+        sourceSVG: ProjectSource.bottomBarHomeIcon,
       ),
       _buildNavigationItem(
         label: "bottom_bar_label_duels",
-        sourceSVG: ProjectSource.bottomBarDuels,
+        sourceSVG: ProjectSource.bottomBarDuelsIcon,
       ),
       _buildNavigationItem(
         label: "bottom_bar_label_add_duel",
-        sourceSVG: ProjectSource.bottomBarAddDuel,
+        sourceSVG: ProjectSource.bottomBarAddDuelIcon,
       ),
       _buildNavigationItem(
         label: "bottom_bar_label_profile",
-        sourceSVG: ProjectSource.bottomBarProfile,
+        sourceSVG: ProjectSource.bottomBarProfileIcon,
       ),
     ];
   }
