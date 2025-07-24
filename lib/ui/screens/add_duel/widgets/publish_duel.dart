@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'package:duelduck_solana/data/repositories/models/create_duel.dart';
+import 'package:duelduck_solana/data/repositories/models/duel.dart';
 import 'package:duelduck_solana/ui/widgets/button/custom_button.dart';
 import 'package:duelduck_solana/ui/widgets/card/duel_card.dart';
 import 'package:duelduck_solana/ui/widgets/text/custom_text.dart';
@@ -10,7 +10,7 @@ import 'package:duelduck_solana/ui/widgets/text/gradient_text.dart';
 import 'package:duelduck_solana/utils/constants.dart';
 
 class PublishDuel extends StatefulWidget {
-  final CreateDuel createDuelModel;
+  final CreateDuelModel createDuelModel;
   const PublishDuel({super.key, required this.createDuelModel});
 
   @override
@@ -55,8 +55,8 @@ class _PublishDuelState extends State<PublishDuel> {
                     ),
                   ],
                   const SizedBox(height: 24),
-                  DuelCard(
-                    createDuelModel: widget.createDuelModel,
+                  DuelCard.createdByMe(
+                    model: widget.createDuelModel,
                     selectedVotingButton: _selectedVotingButton,
                     pressedYes: () {
                       setState(() {

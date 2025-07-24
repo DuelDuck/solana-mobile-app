@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:duelduck_solana/data/repositories/models/create_duel.dart';
+import 'package:duelduck_solana/data/repositories/models/duel.dart';
 import 'package:duelduck_solana/ui/screens/add_duel/widgets/date_time_picker_button.dart';
 import 'package:duelduck_solana/ui/screens/add_duel/widgets/expandable_section.dart';
 import 'package:duelduck_solana/ui/screens/add_duel/widgets/selectable_tabs.dart';
@@ -15,7 +15,7 @@ import 'package:duelduck_solana/ui/widgets/text/custom_text.dart';
 import 'package:duelduck_solana/utils/constants.dart';
 
 class DuelSettings extends StatefulWidget {
-  final Function(CreateDuel) onNextStep;
+  final Function(CreateDuelModel) onNextStep;
   const DuelSettings({super.key, required this.onNextStep});
 
   @override
@@ -98,7 +98,7 @@ class _DuelSettingsState extends State<DuelSettings> {
                     onPressed: () {
                       if (!_isAllSelected()) return;
                       widget.onNextStep(
-                        CreateDuel(
+                        CreateDuelModel(
                           imagePath: _selectedQuestionImage!.path,
                           question: _questionController.text,
                           deadline: _selectedDeadline!,
