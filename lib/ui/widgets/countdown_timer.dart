@@ -53,19 +53,25 @@ class _CountdownTimerState extends State<CountdownTimer> {
             snapshot.data!.isNegative ||
             snapshot.data == Duration.zero ||
             isReverseTimerFinish(snapshot.data)) {
-          return const SizedBox();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              widget.onFinish();
+            }
+          });
         }
-        return IntrinsicHeight(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              CustomText.basic(
-                text: formatDuration(snapshot.data!),
-                style: ProjectFonts.bodyMedium,
+        return snapshot.data != null
+            ? IntrinsicHeight(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  CustomText.basic(
+                    text: formatDuration(snapshot.data!),
+                    style: ProjectFonts.bodyMedium,
+                  ),
+                ],
               ),
-            ],
-          ),
-        );
+            )
+            : SizedBox();
       },
     );
   }

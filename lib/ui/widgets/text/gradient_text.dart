@@ -1,3 +1,4 @@
+import 'package:duelduck_solana/ui/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class GradientText extends StatelessWidget {
@@ -21,7 +22,7 @@ class GradientText extends StatelessWidget {
         );
       },
       blendMode: BlendMode.srcIn,
-      child: Text(text, style: style),
+      child: CustomText.basic(text: text, style: style),
     );
   }
 }
