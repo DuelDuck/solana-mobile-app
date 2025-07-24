@@ -22,7 +22,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.fromLTRB(16, 4, 0, 4),
         child: Image.asset(ProjectSource.logoCircle),
       ),
-      title: CustomText.title(text: "app_name".tr()),
+      title: CustomText.title(
+        text: "app_name".tr(),
+        color: ProjectColors.yellow,
+      ),
       actions: [
         Container(
           decoration: BoxDecoration(

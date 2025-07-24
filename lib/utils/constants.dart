@@ -18,6 +18,8 @@ class ProjectSource {
   static const String logoCircle = "assets/images/logo/logo.png";
   static const String iconWallet = "assets/images/icon_wallet.png";
   static const String logOut = "assets/images/logout.png";
+  static const String noConnectionLogo =
+      "assets/images/logo/no_connection_logo.svg";
 }
 
 class ProjectFonts {

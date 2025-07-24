@@ -3,5 +3,7 @@
   "bottom_bar_label_home": "Home",
   "bottom_bar_label_duels": "Duels",
   "bottom_bar_label_add_duel": "Add duel",
-  "bottom_bar_label_profile": "Profile"
+  "bottom_bar_label_profile": "Profile",
+  "no_internet_connection_screen_title": "NO CONNECTION",
+  "no_internet_connection_screen_subtitle": "Please you internet connection and try again"
 }
