@@ -139,7 +139,7 @@ class _DuelSettingsState extends State<DuelSettings> {
           style: ProjectFonts.bodyRegular.copyWith(color: ProjectColors.grey),
         ),
         const SizedBox(height: 16),
-        CustomTextField(
+        CustomTextField.underline(
           controller: _questionController,
           hint: "add_duel_screen_item_question_hint".tr(),
           maxLength: 85,
@@ -258,7 +258,7 @@ class _DuelSettingsState extends State<DuelSettings> {
         if (_selectedResolves != null &&
             _selectedResolves ==
                 "add_duel_screen_item_resolves_duel_duck_tab".tr())
-          CustomTextField(
+          CustomTextField.underline(
             controller: _resolvesController,
             hint: "add_duel_screen_item_resolves_duel_duck_hint".tr(),
             maxLength: 200,
@@ -291,7 +291,7 @@ class _DuelSettingsState extends State<DuelSettings> {
         Row(
           children: [
             Flexible(
-              child: CustomTextField(
+              child: CustomTextField.underline(
                 controller: _priceController,
                 hint: "add_duel_screen_item_price_hint".tr(),
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -356,7 +356,7 @@ class _DuelSettingsState extends State<DuelSettings> {
         Row(
           children: [
             Flexible(
-              child: CustomTextField(
+              child: CustomTextField.underline(
                 controller: _commissionController,
                 hint: "add_duel_screen_item_fee_hint".tr(),
                 keyboardType: TextInputType.numberWithOptions(decimal: true),

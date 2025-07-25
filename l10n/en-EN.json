@@ -49,5 +49,18 @@
     "duel_card_button_no_won": "No won",
     "duel_card_wating_for_result_title": "You need to pick who wins",
     "no_internet_connection_screen_title": "NO CONNECTION",
-    "no_internet_connection_screen_subtitle": "Please you internet connection and try again"
+    "no_internet_connection_screen_subtitle": "Please you internet connection and try again",
+    "profile_screen_tab_button_stats": "Stats",
+    "profile_screen_tab_button_referral": "Referral",
+    "profile_screen_tab_stats_field": "Username",
+    "profile_screen_tab_stats_total_win": "Total win",
+    "profile_screen_tab_stats_my_fee": "My fee",
+    "profile_screen_tab_stats_duels_win": "Duels win",
+    "profile_screen_tab_stats_duels_lost": "Duels lost",
+    "profile_screen_tab_stats_about": "About",
+    "profile_screen_tab_referral_title": "INVITE AND EARN",
+    "profile_screen_tab_referral_description_1": "Invite Friends to join Duel Duck",
+    "profile_screen_tab_referral_description_2": "+2 USDC when they register",
+    "profile_screen_tab_referral_description_3": "+10 USDC when they create their first duel",
+    "profile_screen_tab_referral_description_4": "+15 USDC when they win their first duel"
 }

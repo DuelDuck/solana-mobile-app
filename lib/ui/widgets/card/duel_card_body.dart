@@ -153,7 +153,7 @@ class _ShortCardBody extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CustomText.basic(
             text: model.question,
-            style: ProjectFonts.bodySemibold,
+            style: ProjectFonts.bodyBold,
           ),
         ),
       ],
@@ -295,7 +295,7 @@ class _LongCardBody extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CustomText.basic(
             text: model.question,
-            style: ProjectFonts.bodySemibold,
+            style: ProjectFonts.bodyBold,
           ),
         ),
         Column(
