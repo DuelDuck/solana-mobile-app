@@ -66,7 +66,7 @@ class _ExpandableSectionState extends State<ExpandableSection>
                 if (widget.isFilled) const SizedBox(width: 8),
                 Text(
                   widget.title,
-                  style: ProjectFonts.bodySemibold.copyWith(
+                  style: ProjectFonts.bodyBold.copyWith(
                     color: _isExpanded ? null : ProjectColors.grey,
                   ),
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ProjectConstants {
   static const String bottomBarStatusActive = "_active.";
+  static const String duelduckUrl = "https://duelduck.com/";
 }
 
 class ProjectSource {
@@ -16,6 +17,8 @@ class ProjectSource {
   static const String duckIcon = "assets/icons/duck_icon.svg";
   static const String questionIcon = "assets/icons/question_icon.svg";
   static const String arrowRightTop = "assets/icons/arrow_right_top.svg";
+  static const String uploadIcon = "assets/icons/upload_icon.svg";
+  static const String defaultDuckIcon = "assets/icons/default_duck_icon.svg";
   static const String selectedVoteButton =
       "assets/icons/selected_vote_button_icon.svg";
   static const String bottomBarHomeIcon =
@@ -42,12 +45,13 @@ class ProjectFonts {
     fontWeight: FontWeight.w400,
     color: Colors.white,
   );
-  static const TextStyle bodySemibold = TextStyle(
+  static const TextStyle bodyBold = TextStyle(
     fontFamily: "Poppins",
     fontSize: 16,
     fontWeight: FontWeight.w600,
     color: Colors.white,
   );
+
   static const TextStyle bodyMedium = TextStyle(
     fontFamily: "Poppins",
     fontSize: 14,
