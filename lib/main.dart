@@ -1,3 +1,5 @@
+import 'package:duelduck_solana/bloc/auth_cubit/auth_cubit.dart';
+import 'package:duelduck_solana/injector/injector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,6 +15,8 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
+  Injector().register();
+
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en', 'EN')],
@@ -20,7 +24,12 @@ void main() async {
       fallbackLocale: const Locale('en', 'EN'),
 
       child: MultiBlocProvider(
-        providers: [BlocProvider(create: (context) => ConnectivityCubit())],
+        providers: [
+          BlocProvider(create: (context) => ConnectivityCubit()),
+          BlocProvider<AuthCubit>(
+            create: (BuildContext context) => AuthCubit(),
+          ),
+        ],
         child: MyApp(screenFactory: ScreenFactory()),
       ),
     ),

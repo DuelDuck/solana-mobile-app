@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ProjectConstants {
+  static const String tokenData = "jwt_info";
+  static const String userData = "user";
+
   static const String bottomBarStatusActive = "_active.";
   static const String duelduckUrl = "https://duelduck.com/";
 }
@@ -21,6 +24,8 @@ class ProjectSource {
   static const String defaultDuckIcon = "assets/icons/default_duck_icon.svg";
   static const String selectedVoteButton =
       "assets/icons/selected_vote_button_icon.svg";
+  static const String arrowRightIcon = "assets/icons/arrow_right_icon.svg";
+
   static const String bottomBarHomeIcon =
       "assets/icons/bottom_bar/bottom_bar_home.svg";
   static const String bottomBarHomeIconActiveIcon =

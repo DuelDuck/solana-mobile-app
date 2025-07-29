@@ -62,5 +62,18 @@
     "profile_screen_tab_referral_description_1": "Invite Friends to join Duel Duck",
     "profile_screen_tab_referral_description_2": "+2 USDC when they register",
     "profile_screen_tab_referral_description_3": "+10 USDC when they create their first duel",
-    "profile_screen_tab_referral_description_4": "+15 USDC when they win their first duel"
+    "profile_screen_tab_referral_description_4": "+15 USDC when they win their first duel",
+    "error_no_connection_internet": "Internet connection has been failed.",
+    "error_internal_server_error": "Internal server error, please try again later.",
+    "error_unauthorized": "Unauthorized, please login",
+    "error_bad_request": "Request execution error",
+    "error_from_backend": "Error from backend, please try again later.",
+    "error_connect_wallet": "Authorization error via wallet",
+    "error_log_out": "Error log out",
+    "error_refresh_token": "Error refresh token, please login.",
+    "connect_wallet_modal_title": "Log in to collect rewards",
+    "connect_wallet_modal_description_1": "You played a demo game. To",
+    "connect_wallet_modal_description_2": "collect your rewards and play with USDC,",
+    "connect_wallet_modal_description_3": "log in to the game.",
+    "connect_wallet_modal_button_title": "PHANTOM LOGIN"
 }
