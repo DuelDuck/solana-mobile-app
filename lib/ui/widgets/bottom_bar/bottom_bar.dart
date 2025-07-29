@@ -1,6 +1,9 @@
+import 'package:duelduck_solana/bloc/auth_cubit/auth_cubit.dart';
+import 'package:duelduck_solana/ui/widgets/modal/log_in_modal.dart';
 import 'package:flutter/material.dart';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -45,7 +48,15 @@ class BottomBarState extends State<BottomBar> {
             type: BottomNavigationBarType.fixed,
             items: getTabs(),
             currentIndex: currentIndex,
-            onTap: (index) => changeTab(index),
+            onTap: (index) {
+              if (context.read<AuthCubit>().state
+                  is! AuthSuccessConnectWallet) {
+                _showLogInModal();
+                return;
+              }
+
+              changeTab(index);
+            },
           ),
         ),
       ),
@@ -130,5 +141,22 @@ class BottomBarState extends State<BottomBar> {
     }
 
     return 0;
+  }
+
+  _showLogInModal() {
+    showModalBottomSheet(
+      context: context,
+      useSafeArea: true,
+      isScrollControlled: true,
+      useRootNavigator: true,
+      backgroundColor: Colors.transparent,
+      builder:
+          (BuildContext modalContext) => LogInModal(
+            onPressed: () {
+              context.read<AuthCubit>().connectWallet();
+              context.pop();
+            },
+          ),
+    );
   }
 }
