@@ -9,6 +9,7 @@ import 'package:duelduck_solana/data/repositories/models/duel.dart';
 import 'package:duelduck_solana/ui/widgets/countdown_timer.dart';
 import 'package:duelduck_solana/ui/widgets/text/custom_text.dart';
 import 'package:duelduck_solana/utils/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DuelCardBody extends StatelessWidget {
   final BaseDuelModel _model;
@@ -317,6 +318,7 @@ class _LongCardBody extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
+          const SizedBox(height: 10),
           // Vote price
           Row(
             children: [
@@ -382,9 +384,9 @@ class _LongCardBody extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           // Source of True
-          if (sourceOfTrue != null)
+          if (sourceOfTrue != null && sourceOfTrue.isNotEmpty)
             GestureDetector(
-              onTap: () {},
+              onTap: () => _launchURL(sourceOfTrue),
               child: Row(
                 children: [
                   CustomText.basic(
@@ -417,6 +419,15 @@ class _LongCardBody extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _launchURL(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch ${ProjectConstants.duelduckUrl}';
+    }
   }
 
   _buildUsdcIcon() {
