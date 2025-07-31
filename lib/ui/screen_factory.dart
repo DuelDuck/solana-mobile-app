@@ -1,4 +1,5 @@
 import 'package:duelduck_solana/bloc/add_duel_cubit/add_duel_cubit.dart';
+import 'package:duelduck_solana/bloc/home_cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,7 +20,10 @@ class ScreenFactory {
   }
 
   Widget homeScreen(BuildContext context, GoRouterState state) {
-    return const HomeScreen();
+    return BlocProvider(
+      create: (context) => HomeCubit()..loadAllDuels(),
+      child: const HomeScreen(),
+    );
   }
 
   Widget duelsScreen(BuildContext context, GoRouterState state) {

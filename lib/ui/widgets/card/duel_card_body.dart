@@ -177,29 +177,15 @@ class _LongCardBody extends StatelessWidget {
               child: SizedBox(
                 height: 115,
                 width: double.infinity,
-                // TODO: image
-                // child: Image.file(
-                //   File(imagePath),
-                //   width: 64,
-                //   height: 64,
-                //   fit: BoxFit.cover,
-                // ),
-                child: Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg',
-                  width: 300,
-                  height: 200,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return const CircularProgressIndicator();
-                  },
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Icon(Icons.broken_image, size: 100);
-                  },
+                child: Image.asset(
+                  ProjectSource.defaultDuelImage,
+                  width: double.infinity,
                 ),
               ),
             ),
-            if (type == DuelCardType.activeToVote && isTimeFinish) ...[
+            if (type == DuelCardType.activeToVote &&
+                model.deadline != null &&
+                isTimeFinish) ...[
               Positioned(
                 top: 16,
                 left: 16,
@@ -210,7 +196,7 @@ class _LongCardBody extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: CountdownTimer(
-                    startDate: model.deadline,
+                    startDate: model.deadline!,
                     onFinish: onTimeFinish,
                   ),
                 ),
@@ -325,7 +311,7 @@ class _LongCardBody extends StatelessWidget {
     required int votePrice,
     required int fee,
     required String resolves,
-    required String sourceOfTrue,
+    required String? sourceOfTrue,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -396,36 +382,37 @@ class _LongCardBody extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           // Source of True
-          GestureDetector(
-            onTap: () {},
-            child: Row(
-              children: [
-                CustomText.basic(
-                  text: "duel_card_body_details_vote_source".tr(),
-                  style: ProjectFonts.bodyMedium.copyWith(
-                    color: ProjectColors.grey,
+          if (sourceOfTrue != null)
+            GestureDetector(
+              onTap: () {},
+              child: Row(
+                children: [
+                  CustomText.basic(
+                    text: "duel_card_body_details_vote_source".tr(),
+                    style: ProjectFonts.bodyMedium.copyWith(
+                      color: ProjectColors.grey,
+                    ),
                   ),
-                ),
-                Spacer(),
-                CustomText.basic(
-                  text: "duel_card_body_details_vote_source_link".tr(),
-                  style: ProjectFonts.bodyMedium,
-                ),
-                const SizedBox(width: 8),
-                Container(
-                  height: 18,
-                  width: 18,
-                  decoration: BoxDecoration(
-                    color: ProjectColors.greyBlack,
-                    shape: BoxShape.circle,
+                  Spacer(),
+                  CustomText.basic(
+                    text: "duel_card_body_details_vote_source_link".tr(),
+                    style: ProjectFonts.bodyMedium,
                   ),
-                  padding: EdgeInsets.all(5),
-                  alignment: Alignment.center,
-                  child: SvgPicture.asset(ProjectSource.arrowRightTop),
-                ),
-              ],
+                  const SizedBox(width: 8),
+                  Container(
+                    height: 18,
+                    width: 18,
+                    decoration: BoxDecoration(
+                      color: ProjectColors.greyBlack,
+                      shape: BoxShape.circle,
+                    ),
+                    padding: EdgeInsets.all(5),
+                    alignment: Alignment.center,
+                    child: SvgPicture.asset(ProjectSource.arrowRightTop),
+                  ),
+                ],
+              ),
             ),
-          ),
           const SizedBox(height: 16),
         ],
       ),

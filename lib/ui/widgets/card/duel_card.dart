@@ -242,13 +242,18 @@ class _ExpandableDuelCardState extends State<_ExpandableDuelCard> {
         Container(
           decoration: BoxDecoration(
             color: ProjectColors.black,
-            borderRadius:
-                widget.type == DuelCardType.activeToVote
-                    ? BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                    )
-                    : null,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
+              bottomLeft:
+                  widget.type == DuelCardType.activeToVote
+                      ? Radius.circular(15)
+                      : Radius.zero,
+              bottomRight:
+                  widget.type == DuelCardType.activeToVote
+                      ? Radius.circular(15)
+                      : Radius.zero,
+            ),
           ),
           child: Column(
             children: [
@@ -334,7 +339,8 @@ class _ExpandableDuelCardState extends State<_ExpandableDuelCard> {
               buttonHeight: 56,
               borderRadius: 8,
               background:
-                  widget.model.yourAnswer == 0
+                  widget.model.yourAnswer != null &&
+                          widget.model.yourAnswer == 0
                       ? ProjectColors.red
                       : ProjectColors.black,
               borderSideColor: ProjectColors.black,

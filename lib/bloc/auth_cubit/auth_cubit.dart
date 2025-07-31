@@ -31,7 +31,11 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Fresh<OAuth2Token> _getInterceptor() => Fresh.oAuth2(
-    tokenHeader: (token) => {'Authorization': 'Bearer ${token.accessToken}'},
+    tokenHeader:
+        (token) =>
+            token.refreshToken == null
+                ? {'Authorization': token.accessToken}
+                : {'Authorization': 'Bearer ${token.accessToken}'},
     tokenStorage: myStorageToken,
     shouldRefresh: (response) => response?.statusCode == 401,
     refreshToken: (OAuth2Token? currentToken, Dio client) async {
@@ -63,6 +67,9 @@ class AuthCubit extends Cubit<AuthState> {
       final OAuth2Token? token =
           await myStorageToken.read(); // required for Init MyStorageToken
       tokenRefreshInterceptor.setToken(token); // and save
+
+      print("Access Token: ${token?.accessToken}");
+      print("Refresh Token: ${token?.refreshToken}");
 
       final String? walletAddress =
           await _authRepository.getWalletAddressFromStorage();

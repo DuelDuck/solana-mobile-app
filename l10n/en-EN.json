@@ -77,5 +77,8 @@
     "connect_wallet_modal_description_2": "collect your rewards and play with USDC,",
     "connect_wallet_modal_description_3": "log in to the game.",
     "connect_wallet_modal_button_title": "PHANTOM LOGIN",
-    "error_sign_transaction": "Error sign transaction"
+    "error_sign_transaction": "Error sign transaction",
+    "error_get_duels": "Error get duels",
+    "error_get_transaction_to_join_duel": "Error get transaction",
+    "error_join_to_duel": "Error join to duel"
 }
