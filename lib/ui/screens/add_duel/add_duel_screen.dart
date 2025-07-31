@@ -1,8 +1,9 @@
+import 'package:duelduck_solana/bloc/add_duel_cubit/add_duel_cubit.dart';
 import 'package:flutter/material.dart';
 
-import 'package:duelduck_solana/data/repositories/models/duel.dart';
 import 'package:duelduck_solana/ui/screens/add_duel/widgets/publish_duel.dart';
 import 'package:duelduck_solana/ui/screens/add_duel/widgets/duel_settings.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddDuelScreen extends StatefulWidget {
   const AddDuelScreen({super.key});
@@ -12,26 +13,34 @@ class AddDuelScreen extends StatefulWidget {
 }
 
 class _AddDuelScreenState extends State<AddDuelScreen> {
-  bool _isConfirmationDuel = false;
-
-  late CreateDuelModel createDuelModel;
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child:
-            _isConfirmationDuel
-                ? PublishDuel(createDuelModel: createDuelModel)
-                : DuelSettings(
-                  onNextStep: (createDuel) {
-                    setState(() {
-                      createDuelModel = createDuel;
-                      _isConfirmationDuel = true;
-                    });
-                  },
-                ),
-      ),
+    return BlocBuilder<AddDuelCubit, AddDuelState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: SafeArea(
+            child:
+                state.isPublishStep && state.createDuelModel != null
+                    ? PublishDuel(
+                      createDuelModel: state.createDuelModel!,
+                      isPublished: state is AddDuelSuccessCreate,
+                      isLoading: state is AddDuelLoading,
+                      onEdit:
+                          () => context.read<AddDuelCubit>().goToCreateStep(),
+                      onVote:
+                          (model) =>
+                              context.read<AddDuelCubit>().createDuel(model),
+                    )
+                    : DuelSettings(
+                      createDuelModel: state.createDuelModel,
+                      onNextStep:
+                          (createDuel) => context
+                              .read<AddDuelCubit>()
+                              .goToNextStep(createDuel),
+                    ),
+          ),
+        );
+      },
     );
   }
 }

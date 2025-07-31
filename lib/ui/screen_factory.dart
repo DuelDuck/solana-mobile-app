@@ -1,4 +1,6 @@
+import 'package:duelduck_solana/bloc/add_duel_cubit/add_duel_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
 
@@ -25,7 +27,10 @@ class ScreenFactory {
   }
 
   Widget addDuelScreen(BuildContext context, GoRouterState state) {
-    return const AddDuelScreen();
+    return BlocProvider(
+      create: (context) => AddDuelCubit(),
+      child: const AddDuelScreen(),
+    );
   }
 
   Widget profileScreen(BuildContext context, GoRouterState state) {

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:duelduck_solana/data/repositories/models/duel.dart';
 import 'package:duelduck_solana/utils/app_properties.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,42 @@ class ApiManager {
     } catch (e) {
       debugPrint(e.toString());
       return ApiResponse(data: null, errorMessage: "error_connect_wallet".tr());
+    }
+  }
+
+  Future<ApiResponse> getTransactionToCreateDuel(CreateDuelModel model) async {
+    try {
+      print(model.toJson());
+      Future<Response> request = dio.post(
+        "/crypto-duel/app/sign-tx",
+        data: model.toJson(),
+      );
+      return await ApiResponse.executeResponse(request: request);
+    } catch (e) {
+      debugPrint(e.toString());
+      return ApiResponse(
+        data: null,
+        errorMessage: "error_sign_transaction".tr(),
+      );
+    }
+  }
+
+  Future<ApiResponse> createDuel({
+    required CreateDuelModel model,
+    required String txHashBase58,
+  }) async {
+    try {
+      Future<Response> request = dio.post(
+        "/crypto-duel/app",
+        data: {"duel": model.toJson(), "tx_hash": txHashBase58},
+      );
+      return await ApiResponse.executeResponse(request: request);
+    } catch (e) {
+      debugPrint(e.toString());
+      return ApiResponse(
+        data: null,
+        errorMessage: "error_sign_transaction".tr(),
+      );
     }
   }
 }

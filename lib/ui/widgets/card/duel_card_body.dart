@@ -92,29 +92,13 @@ class _ShortCardBody extends StatelessWidget {
               child: SizedBox(
                 height: 115,
                 width: double.infinity,
-                // TODO: image
-                // child: Image.file(
-                //   File(imagePath),
-                //   width: 64,
-                //   height: 64,
-                //   fit: BoxFit.cover,
-                // ),
-                child: Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg',
-                  width: 300,
-                  height: 200,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return const CircularProgressIndicator();
-                  },
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Icon(Icons.broken_image, size: 100);
-                  },
+                child: Image.asset(
+                  ProjectSource.defaultDuelImage,
+                  width: double.infinity,
                 ),
               ),
             ),
-            if (isTimeFinish)
+            if (isTimeFinish && model.deadline != null)
               Positioned(
                 top: 16,
                 left: 16,
@@ -125,7 +109,7 @@ class _ShortCardBody extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: CountdownTimer(
-                    startDate: model.deadline,
+                    startDate: model.deadline!,
                     onFinish: onTimeFinish,
                   ),
                 ),
@@ -152,7 +136,7 @@ class _ShortCardBody extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CustomText.basic(
-            text: model.question,
+            text: model.question ?? "",
             style: ProjectFonts.bodyBold,
           ),
         ),

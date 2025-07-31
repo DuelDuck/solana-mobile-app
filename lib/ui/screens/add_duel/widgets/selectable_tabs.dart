@@ -3,12 +3,14 @@ import 'package:duelduck_solana/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class SelectableTabs extends StatefulWidget {
+  final String? initTab;
   final List<String> tabs;
   final Widget? itemIcon;
   final ValueChanged<String> onTabSelected;
 
   const SelectableTabs({
     super.key,
+    this.initTab,
     required this.tabs,
     this.itemIcon,
     required this.onTabSelected,
@@ -20,6 +22,12 @@ class SelectableTabs extends StatefulWidget {
 
 class _SelectableTabsState extends State<SelectableTabs> {
   String? selectedTab;
+
+  @override
+  void initState() {
+    selectedTab = widget.initTab;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
