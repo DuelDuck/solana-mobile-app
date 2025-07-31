@@ -42,6 +42,7 @@ class ProjectSource {
   static const String logOut = "assets/images/logout.png";
   static const String noConnectionLogo =
       "assets/images/logo/no_connection_logo.svg";
+  static const String defaultDuelImage = "assets/images/default_duel_image.png";
 }
 
 class ProjectFonts {

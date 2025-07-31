@@ -51,7 +51,7 @@ class AuthRepository {
     );
   }
 
-  Future<void> saveUser(User user) async {
+  Future saveUser(User user) async {
     getIt.registerSingleton<User>(user);
   }
 

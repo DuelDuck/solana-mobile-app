@@ -11,17 +11,24 @@ import 'package:duelduck_solana/utils/constants.dart';
 
 class PublishDuel extends StatefulWidget {
   final CreateDuelModel createDuelModel;
-  const PublishDuel({super.key, required this.createDuelModel});
+  final bool isPublished;
+  final bool isLoading;
+  final Function() onEdit;
+  final Function(CreateDuelModel) onVote;
+  const PublishDuel({
+    super.key,
+    required this.createDuelModel,
+    required this.isPublished,
+    required this.isLoading,
+    required this.onEdit,
+    required this.onVote,
+  });
 
   @override
   State<PublishDuel> createState() => _PublishDuelState();
 }
 
 class _PublishDuelState extends State<PublishDuel> {
-  bool _isPublished = false;
-
-  String? _selectedVotingButton;
-
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -45,7 +52,7 @@ class _PublishDuelState extends State<PublishDuel> {
                     ),
                   ),
 
-                  if (!_isPublished) ...[
+                  if (!widget.isPublished) ...[
                     const SizedBox(height: 12),
                     CustomText.basic(
                       text: "add_duel_screen_publish_description".tr(),
@@ -57,23 +64,26 @@ class _PublishDuelState extends State<PublishDuel> {
                   const SizedBox(height: 24),
                   DuelCard.createdByMe(
                     model: widget.createDuelModel,
-                    selectedVotingButton: _selectedVotingButton,
+                    selectedVotingButton:
+                        widget.createDuelModel.answer == null
+                            ? null
+                            : widget.createDuelModel.answer == 1
+                            ? "vote_button_yes".tr()
+                            : "vote_button_no".tr(),
                     pressedYes: () {
-                      setState(() {
-                        _isPublished = true;
-                        _selectedVotingButton = "vote_button_yes".tr();
-                      });
+                      if (widget.createDuelModel.answer != null) return;
+                      widget.onVote(widget.createDuelModel.copyWith(answer: 1));
                     },
                     pressedNo: () {
-                      setState(() {
-                        _isPublished = false;
-                        _selectedVotingButton = "vote_button_no".tr();
-                      });
+                      if (widget.createDuelModel.answer != null) return;
+                      widget.onVote(widget.createDuelModel.copyWith(answer: 0));
                     },
                   ),
                   const SizedBox(height: 24),
                   Spacer(),
-                  if (_isPublished)
+
+                  if (widget.isLoading) CircularProgressIndicator(),
+                  if (widget.isPublished) ...[
                     CustomButton(
                       title: "add_duel_screen_share_button".tr(),
                       background: ProjectColors.primaryYellow,
@@ -98,6 +108,16 @@ class _PublishDuelState extends State<PublishDuel> {
                       ),
                       onPressed: () {},
                     ),
+                  ] else ...[
+                    CustomButton(
+                      title: "add_duel_screen_edit_button".tr(),
+                      textStyleTitle: ProjectFonts.headerRegular.copyWith(
+                        fontSize: 16,
+                        color: ProjectColors.grey,
+                      ),
+                      onPressed: widget.onEdit,
+                    ),
+                  ],
                   const SizedBox(height: 24),
                 ],
               ),

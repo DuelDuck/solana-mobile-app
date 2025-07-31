@@ -8,33 +8,136 @@ CreateDuelModel createDuelModelFromJson(String str) =>
 String createDuelToJson(CreateDuelModel data) => json.encode(data.toJson());
 
 class CreateDuelModel extends BaseDuelModel {
-  final String imagePath;
-  final String question;
-  final DateTime deadline;
+  final int? answer;
+  final String? bgUrl;
+  final int? commission;
+  final DateTime? deadline;
+  final DuelInfo? duelInfo;
+  final int? duelPrice;
+  final String? duelType;
+  final List<int>? entities;
+  final DateTime? eventDate;
+  final String? imageUrl;
+  final bool? isAppDuel;
+  final bool? isOwnerResolving; // You - true, duel duck - false
+  final int? paymentType; // 0 duck coin, 1 usdc
+  final String? question;
+  final String? sourceOfTruth; // link
+  final String? subtopic;
+  final String? topic;
+  final String? tournamentId;
 
   CreateDuelModel({
-    required this.imagePath,
-    required this.question,
-    required this.deadline,
+    this.answer,
+    this.bgUrl,
+    this.commission,
+    this.deadline,
+    this.duelInfo,
+    this.duelPrice,
+    this.duelType,
+    this.entities,
+    this.eventDate,
+    this.imageUrl,
+    this.isAppDuel = true,
+    this.isOwnerResolving,
+    this.paymentType = 1, // 0 duck coin, 1 usdc
+    this.question,
+    this.sourceOfTruth,
+    this.subtopic,
+    this.topic = "custom",
+    this.tournamentId,
   });
+
+  CreateDuelModel copyWith({
+    int? answer,
+    String? bgUrl,
+    int? commission,
+    DateTime? deadline,
+    DuelInfo? duelInfo,
+    int? duelPrice,
+    String? duelType,
+    List<int>? entities,
+    DateTime? eventDate,
+    String? imageUrl,
+    bool? isAppDuel,
+    bool? isOwnerResolving, // You - true, duel duck - false
+    int? paymentType, // 0 duck coin, 1 usdc
+    String? question,
+    String? sourceOfTruth, // link
+    String? subtopic,
+    String? topic,
+    String? tournamentId,
+  }) => CreateDuelModel(
+    answer: answer ?? this.answer,
+    bgUrl: bgUrl ?? this.bgUrl,
+    commission: commission ?? this.commission,
+    deadline: deadline ?? this.deadline,
+    duelInfo: duelInfo ?? this.duelInfo,
+    duelPrice: duelPrice ?? this.duelPrice,
+    duelType: duelType ?? this.duelType,
+    entities: entities ?? this.entities,
+    eventDate: eventDate ?? this.eventDate,
+    imageUrl: imageUrl ?? this.imageUrl,
+    isAppDuel: isAppDuel ?? this.isAppDuel,
+    isOwnerResolving: isOwnerResolving ?? this.isOwnerResolving,
+    paymentType: paymentType ?? this.paymentType,
+    question: question ?? this.question,
+    sourceOfTruth: sourceOfTruth ?? this.sourceOfTruth,
+    subtopic: subtopic ?? this.subtopic,
+    topic: topic ?? this.topic,
+    tournamentId: tournamentId ?? this.tournamentId,
+  );
 
   factory CreateDuelModel.fromJson(Map<String, dynamic> json) {
     return CreateDuelModel(
-      imagePath: json["imagePath"],
-      question: json["question"],
-      deadline: json["deadline"],
+      answer: json["answer"] ?? 0,
+      bgUrl: json["bg_url"] ?? "",
+      commission: json["commission"] ?? 0,
+      deadline: DateTime.tryParse(json["deadline"] ?? "") ?? DateTime.now(),
+      duelInfo:
+          json['duel_info'] != null
+              ? DuelInfo.fromJson(json['duel_info'])
+              : null,
+      duelPrice: json["duel_price"] ?? 0,
+      duelType: json["duel_type"] ?? "",
+      entities: List<int>.from(json["entities"] ?? []),
+      eventDate: DateTime.tryParse(json["event_date"] ?? "") ?? DateTime.now(),
+      imageUrl: json["image_url"] ?? "",
+      isAppDuel: json["is_app_duel"] ?? false,
+      isOwnerResolving: json["is_owner_resolving"] ?? false,
+      paymentType: json["payment_type"] ?? 0,
+      question: json["question"] ?? "",
+      sourceOfTruth: json["source_of_truth"] ?? "",
+      subtopic: json["subtopic"] ?? "",
+      topic: json["topic"] ?? "",
+      tournamentId: json["tournament_id"] ?? "",
     );
   }
 
   Map<String, dynamic> toJson() => {
-    "imagePath": imagePath,
+    "answer": answer,
+    "bg_url": bgUrl,
+    "commission": commission,
+    "deadline": "${deadline!.toIso8601String()}Z",
+    "duel_info": duelInfo?.toJson(),
+    "duel_price": duelPrice,
+    "duel_type": duelType,
+    "entities": entities,
+    "event_date": "${eventDate!.toIso8601String()}Z",
+    "image_url": imageUrl,
+    "is_app_duel": isAppDuel,
+    "is_owner_resolving": isOwnerResolving,
+    "payment_type": paymentType,
     "question": question,
-    "deadline": deadline,
+    "source_of_truth": sourceOfTruth,
+    "subtopic": subtopic,
+    "topic": topic,
+    "tournament_id": tournamentId,
   };
 
   @override
   String toString() {
-    return 'CreateDuelModel(imagePath: $imagePath, question: $question, deadline: $deadline)';
+    return 'CreateDuelModel(question: $question, deadline: $deadline, duelType: $duelType)';
   }
 }
 
@@ -161,7 +264,7 @@ class DuelModel extends BaseDuelModel {
     "commission": commission,
     "created_at": createdAt.toIso8601String(),
     "deadline": deadline.toIso8601String(),
-    "duel_info": duelInfo,
+    "duel_info": duelInfo.toJson(),
     "duel_price": duelPrice,
     "duel_type": duelType,
     "entities": entities,

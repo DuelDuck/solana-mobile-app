@@ -100,7 +100,13 @@ class _CreateDuelCardState extends State<_CreateDuelCard> {
     return Column(
       children: [
         Container(
-          decoration: BoxDecoration(color: ProjectColors.black),
+          decoration: BoxDecoration(
+            color: ProjectColors.black,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
+            ),
+          ),
           padding: EdgeInsets.only(bottom: 24),
           child: DuelCardBody.short(
             model: widget.model,

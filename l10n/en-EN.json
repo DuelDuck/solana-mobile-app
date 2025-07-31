@@ -22,6 +22,7 @@
     "add_duel_screen_next_button": "NEXT",
     "add_duel_screen_vote_to_publish_header": "VOTE TO PUBLISH",
     "add_duel_screen_share_button": "SHARE",
+    "add_duel_screen_edit_button": "EDIT",
     "add_duel_screen_publish_description": "press on “yes” or “no” to publish this duel",
     "app_name": "Duel Duck",
     "bottom_bar_label_home": "Home",
@@ -75,5 +76,6 @@
     "connect_wallet_modal_description_1": "You played a demo game. To",
     "connect_wallet_modal_description_2": "collect your rewards and play with USDC,",
     "connect_wallet_modal_description_3": "log in to the game.",
-    "connect_wallet_modal_button_title": "PHANTOM LOGIN"
+    "connect_wallet_modal_button_title": "PHANTOM LOGIN",
+    "error_sign_transaction": "Error sign transaction"
 }

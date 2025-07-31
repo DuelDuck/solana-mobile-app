@@ -5,8 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class DateTimePickerButton extends StatefulWidget {
+  final DateTime? initDateTime;
   final Function(DateTime) onSelectedDate;
-  const DateTimePickerButton({super.key, required this.onSelectedDate});
+  const DateTimePickerButton({
+    super.key,
+    this.initDateTime,
+    required this.onSelectedDate,
+  });
 
   @override
   State<DateTimePickerButton> createState() => _DateTimePickerButtonState();
@@ -14,6 +19,12 @@ class DateTimePickerButton extends StatefulWidget {
 
 class _DateTimePickerButtonState extends State<DateTimePickerButton> {
   DateTime? _selectedDateTime;
+
+  @override
+  void initState() {
+    _selectedDateTime = widget.initDateTime;
+    super.initState();
+  }
 
   void _pickDateTime() async {
     final DateTime now = DateTime.now();

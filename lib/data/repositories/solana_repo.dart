@@ -9,4 +9,8 @@ class SolanaRepository {
   Future<({Uint8List publicKey, Uint8List signature})?> connectWallet() async {
     return await _manager.authorizeWallet();
   }
+
+  Future<String?> signAndSendBase64Transaction(String base64Tx) async {
+    return await _manager.signAndSendBase64Transaction(base64Tx);
+  }
 }

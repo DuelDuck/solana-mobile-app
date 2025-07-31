@@ -1,9 +1,8 @@
-import 'dart:io';
+import 'package:duelduck_solana/utils/utils.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'package:duelduck_solana/data/repositories/models/duel.dart';
 import 'package:duelduck_solana/ui/screens/add_duel/widgets/date_time_picker_button.dart';
@@ -15,24 +14,53 @@ import 'package:duelduck_solana/ui/widgets/text/custom_text.dart';
 import 'package:duelduck_solana/utils/constants.dart';
 
 class DuelSettings extends StatefulWidget {
+  final CreateDuelModel? createDuelModel;
   final Function(CreateDuelModel) onNextStep;
-  const DuelSettings({super.key, required this.onNextStep});
+  const DuelSettings({
+    super.key,
+    this.createDuelModel,
+    required this.onNextStep,
+  });
 
   @override
   State<DuelSettings> createState() => _DuelSettingsState();
 }
 
 class _DuelSettingsState extends State<DuelSettings> {
-  final TextEditingController _questionController = TextEditingController();
-  final TextEditingController _resolvesController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _commissionController = TextEditingController();
+  late TextEditingController _questionController;
+  late TextEditingController _sourceOfTruthController;
+  late TextEditingController _priceController;
+  late TextEditingController _commissionController;
+  late CreateDuelModel? model;
 
-  XFile? _selectedQuestionImage;
+  // TODO: image picker, will fix the backend
+  // XFile? _selectedQuestionImage;
   DateTime? _selectedDeadline;
   String? _selectedResolves;
   int? _selectedPrice;
   int? _selectedCommission;
+
+  @override
+  void initState() {
+    super.initState();
+    model = widget.createDuelModel;
+    _questionController = TextEditingController(text: model?.question);
+    _sourceOfTruthController = TextEditingController(
+      text: model?.sourceOfTruth,
+    );
+    _priceController = TextEditingController(text: model?.duelPrice.toString());
+    _commissionController = TextEditingController(
+      text: model?.commission.toString(),
+    );
+
+    _selectedDeadline = model?.deadline;
+    _selectedResolves =
+        model != null && model?.isOwnerResolving != null
+            ? model!.isOwnerResolving!
+                ? "add_duel_screen_item_resolves_you_tab".tr()
+                : "add_duel_screen_item_resolves_duel_duck_tab".tr()
+            : null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +81,7 @@ class _DuelSettingsState extends State<DuelSettings> {
                   const SizedBox(height: 24),
                   ExpandableSection(
                     title: "add_duel_screen_item_question".tr(),
-                    isFilled:
-                        _questionController.text.isNotEmpty &&
-                        _selectedQuestionImage != null,
+                    isFilled: _questionController.text.isNotEmpty,
                     child: _buildQuestionItem(),
                   ),
                   const SizedBox(height: 16),
@@ -71,20 +97,24 @@ class _DuelSettingsState extends State<DuelSettings> {
                         _selectedResolves ==
                                 "add_duel_screen_item_resolves_duel_duck_tab"
                                     .tr()
-                            ? _resolvesController.text.isNotEmpty
+                            ? _sourceOfTruthController.text.isNotEmpty
                             : _selectedResolves != null,
                     child: _buildResolvesItem(),
                   ),
                   const SizedBox(height: 16),
                   ExpandableSection(
                     title: "add_duel_screen_item_price".tr(),
-                    isFilled: _selectedPrice != null,
+                    isFilled:
+                        _selectedPrice != null ||
+                        _priceController.text.isNotEmpty,
                     child: _buildPriceItem(),
                   ),
                   const SizedBox(height: 16),
                   ExpandableSection(
                     title: "add_duel_screen_item_fee".tr(),
-                    isFilled: _selectedCommission != null,
+                    isFilled:
+                        _selectedCommission != null ||
+                        _commissionController.text.isNotEmpty,
                     child: _buildCommissionItem(),
                   ),
                   const SizedBox(height: 24),
@@ -96,14 +126,7 @@ class _DuelSettingsState extends State<DuelSettings> {
                       color: ProjectColors.grey,
                     ),
                     onPressed: () {
-                      if (!_isAllSelected()) return;
-                      widget.onNextStep(
-                        CreateDuelModel(
-                          imagePath: _selectedQuestionImage!.path,
-                          question: _questionController.text,
-                          deadline: _selectedDeadline!,
-                        ),
-                      );
+                      _toNextStep();
                     },
                   ),
                   const SizedBox(height: 24),
@@ -116,18 +139,46 @@ class _DuelSettingsState extends State<DuelSettings> {
     );
   }
 
+  _toNextStep() {
+    if (!_isAllSelected()) return;
+
+    int? commission =
+        _commissionController.text.isNotEmpty
+            ? int.parse(_commissionController.text)
+            : null;
+    int? price =
+        _priceController.text.isNotEmpty
+            ? int.parse(_priceController.text)
+            : null;
+
+    widget.onNextStep(
+      CreateDuelModel(
+        commission: commission ?? _selectedCommission,
+        deadline: _selectedDeadline,
+        duelPrice: price ?? _selectedPrice,
+        eventDate: _selectedDeadline,
+        isOwnerResolving:
+            _selectedResolves == "add_duel_screen_item_resolves_you_tab".tr(),
+        question: _questionController.text,
+        sourceOfTruth:
+            _sourceOfTruthController.text.isNotEmpty
+                ? _sourceOfTruthController.text
+                : null,
+      ),
+    );
+  }
+
   _isAllSelected() {
     final selectedResolves =
         _selectedResolves == "add_duel_screen_item_resolves_duel_duck_tab".tr()
-            ? _resolvesController.text.isNotEmpty
+            ? _sourceOfTruthController.text.isNotEmpty
             : _selectedResolves != null;
 
     return _questionController.text.isNotEmpty &&
-        _selectedQuestionImage != null &&
         _selectedDeadline != null &&
         selectedResolves &&
-        _selectedPrice != null &&
-        _selectedCommission != null;
+        (_selectedPrice != null || _priceController.text.isNotEmpty) &&
+        (_selectedCommission != null || _commissionController.text.isNotEmpty);
   }
 
   _buildQuestionItem() {
@@ -146,68 +197,72 @@ class _DuelSettingsState extends State<DuelSettings> {
           onChanged: (text) {},
           onSubmitted: (text) => setState(() {}),
         ),
-        _selectedQuestionImage == null
-            ? GestureDetector(
-              onTap: () => onTapChooseMedia(context),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: SvgPicture.asset(ProjectSource.addImageIcon),
-              ),
-            )
-            : Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Container(
-                    height: 85,
-                    width: 75,
-                    alignment: Alignment.centerLeft,
-                    child: Image.file(
-                      File(_selectedQuestionImage!.path),
-                      width: 64,
-                      height: 64,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: GestureDetector(
-                      onTap: _removeImage,
-                      child: Container(
-                        height: 24,
-                        width: 24,
-                        decoration: BoxDecoration(
-                          color: ProjectColors.greySecondary,
-                          shape: BoxShape.circle,
-                        ),
-                        alignment: Alignment.center,
-                        child: SvgPicture.asset(ProjectSource.closeIcon),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+
+        // TODO: image picker, will fix the backend
+        // _selectedQuestionImage == null
+        //     ? GestureDetector(
+        //       onTap: () => onTapChooseMedia(context),
+        //       child: Padding(
+        //         padding: const EdgeInsets.only(top: 16),
+        //         child: SvgPicture.asset(ProjectSource.addImageIcon),
+        //       ),
+        //     )
+        //     : Padding(
+        //       padding: const EdgeInsets.only(top: 8),
+        //       child: Stack(
+        //         alignment: Alignment.topRight,
+        //         children: [
+        //           Container(
+        //             height: 85,
+        //             width: 75,
+        //             alignment: Alignment.centerLeft,
+        //             child: Image.file(
+        //               File(_selectedQuestionImage!.path),
+        //               width: 64,
+        //               height: 64,
+        //               fit: BoxFit.cover,
+        //             ),
+        //           ),
+        //           Positioned(
+        //             top: 0,
+        //             right: 0,
+        //             child: GestureDetector(
+        //               onTap: _removeImage,
+        //               child: Container(
+        //                 height: 24,
+        //                 width: 24,
+        //                 decoration: BoxDecoration(
+        //                   color: ProjectColors.greySecondary,
+        //                   shape: BoxShape.circle,
+        //                 ),
+        //                 alignment: Alignment.center,
+        //                 child: SvgPicture.asset(ProjectSource.closeIcon),
+        //               ),
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
       ],
     );
   }
 
-  Future<void> onTapChooseMedia(BuildContext context) async {
-    final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (picked != null) {
-      setState(() {
-        _selectedQuestionImage = picked;
-      });
-    }
-  }
+  // TODO: image picker, will fix the backend
+  // Future<void> onTapChooseMedia(BuildContext context) async {
+  //   final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   if (picked != null) {
+  //     setState(() {
+  //       _selectedQuestionImage = picked;
+  //     });
+  //   }
+  // }
 
-  void _removeImage() {
-    setState(() {
-      _selectedQuestionImage = null;
-    });
-  }
+  // TODO: image picker, will fix the backend
+  // void _removeImage() {
+  //   setState(() {
+  //     _selectedQuestionImage = null;
+  //   });
+  // }
 
   _buildDeadlineItem() {
     return Column(
@@ -219,6 +274,7 @@ class _DuelSettingsState extends State<DuelSettings> {
         ),
         const SizedBox(height: 16),
         DateTimePickerButton(
+          initDateTime: _selectedDeadline,
           onSelectedDate: (dateTime) {
             setState(() {
               _selectedDeadline = dateTime;
@@ -239,6 +295,7 @@ class _DuelSettingsState extends State<DuelSettings> {
         ),
         const SizedBox(height: 16),
         SelectableTabs(
+          initTab: _selectedResolves,
           tabs: [
             "add_duel_screen_item_resolves_you_tab".tr(),
             "add_duel_screen_item_resolves_duel_duck_tab".tr(),
@@ -259,7 +316,7 @@ class _DuelSettingsState extends State<DuelSettings> {
             _selectedResolves ==
                 "add_duel_screen_item_resolves_duel_duck_tab".tr())
           CustomTextField.underline(
-            controller: _resolvesController,
+            controller: _sourceOfTruthController,
             hint: "add_duel_screen_item_resolves_duel_duck_hint".tr(),
             maxLength: 200,
             onChanged: (text) {},
@@ -298,7 +355,12 @@ class _DuelSettingsState extends State<DuelSettings> {
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
                 ],
-                onChanged: (text) {},
+                onChanged:
+                    (text) => Utils.autocorrectMinValue(
+                      value: text,
+                      minValue: 1,
+                      controller: _priceController,
+                    ),
                 onSubmitted: (text) => setState(() {}),
               ),
             ),
