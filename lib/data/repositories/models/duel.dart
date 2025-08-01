@@ -1,5 +1,16 @@
 import 'dart:convert';
 
+enum DuelCardType {
+  none,
+  createdByMe, // I created the card myself (displayed immediately after creation on the Add Duel screen)
+  activeToVote, // An active card that needs to be voted on
+  waitingForResult, // I have voted and the voting is pending.
+  pending, // You need to choose a winner (Yes or No)
+  cancelled, // The card has been cancelled.
+  done, // The card is completed and the voting result is displayed.
+  refunded,
+}
+
 abstract class BaseDuelModel {}
 
 CreateDuelModel createDuelModelFromJson(String str) =>
@@ -180,6 +191,7 @@ class DuelModel extends BaseDuelModel {
   final int? winnersCount;
   final int yesCount;
   final int? yourAnswer;
+  final DuelCardType? duelCardType;
 
   DuelModel({
     required this.approvedBy,
@@ -216,6 +228,7 @@ class DuelModel extends BaseDuelModel {
     required this.winnersCount,
     required this.yesCount,
     required this.yourAnswer,
+    this.duelCardType = DuelCardType.none,
   });
 
   DuelModel copyWith({
@@ -253,6 +266,7 @@ class DuelModel extends BaseDuelModel {
     int? winnersCount,
     int? yesCount,
     int? yourAnswer,
+    DuelCardType? duelCardType,
   }) => DuelModel(
     approvedBy: approvedBy ?? this.approvedBy,
     bgUrl: bgUrl ?? this.bgUrl,
@@ -288,6 +302,7 @@ class DuelModel extends BaseDuelModel {
     winnersCount: winnersCount ?? this.winnersCount,
     yesCount: yesCount ?? this.yesCount,
     yourAnswer: yourAnswer ?? this.yourAnswer,
+    duelCardType: duelCardType ?? this.duelCardType,
   );
 
   factory DuelModel.fromJson(Map<String, dynamic> json) {

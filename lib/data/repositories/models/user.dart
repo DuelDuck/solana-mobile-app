@@ -67,6 +67,40 @@ class User {
     required this.youtubeUrl,
   });
 
+  factory User.empty() {
+    return User(
+      balance: 0,
+      bgUrl: "",
+      bio: "",
+      createdAt: DateTime.now(),
+      currentXp: 0,
+      dailyRewardStreak: 0,
+      discordUrl: "",
+      email: "",
+      id: "",
+      imageUrl: "",
+      instagramUrl: "",
+      isExternalWallet: false,
+      isPremium: false,
+      lastCompletedStreak: "",
+      level: 0,
+      publicAddress: "",
+      referralToken: "",
+      role: -1,
+      solAutoswap: false,
+      telegramId: "",
+      telegramUrl: "",
+      twoFa: false,
+      twoFaSecret: "",
+      updatedAt: "",
+      usdcAutoswap: false,
+      username: "",
+      website: "",
+      xUrl: "",
+      youtubeUrl: "",
+    );
+  }
+
   factory User.fromJson(Map<String, dynamic> json) => User(
     balance: json["balance"],
     bgUrl: json["bg_url"],

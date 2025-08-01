@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class SecureStorage {
   static const String walletAddress = "WalletAddress";
   static const String token = "Token";
+  static const String user = "User";
 
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 

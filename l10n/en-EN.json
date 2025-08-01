@@ -49,6 +49,8 @@
     "duel_card_button_yes_won": "yes won",
     "duel_card_button_no_won": "No won",
     "duel_card_wating_for_result_title": "You need to pick who wins",
+    "duel_card_button_wating_for_result_title": "Waiting for result",
+    "duel_card_label_refunded": "Refunded",
     "no_internet_connection_screen_title": "NO CONNECTION",
     "no_internet_connection_screen_subtitle": "Please you internet connection and try again",
     "profile_screen_tab_button_stats": "Stats",
@@ -80,5 +82,11 @@
     "error_sign_transaction": "Error sign transaction",
     "error_get_duels": "Error get duels",
     "error_get_transaction_to_join_duel": "Error get transaction",
-    "error_join_to_duel": "Error join to duel"
+    "error_join_to_duel": "Error join to duel",
+    "duels_screen_voted_tab": "Voted",
+    "duels_screen_created_tab": "Created",
+    "duels_screen_pending_tab": "Pending",
+    "duels_screen_done_tab": "Done",
+    "error_get_my_duels": "Error get my duels",
+    "error_resolve_duel": "Error resolve duel"
 }

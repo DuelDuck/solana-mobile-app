@@ -14,4 +14,10 @@ class Utils {
       );
     }
   }
+
+  static bool isDateInPast(DateTime? date) {
+    if (date == null) return true;
+
+    return date.isBefore(DateTime.now());
+  }
 }

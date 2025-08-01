@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:duelduck_solana/data/repositories/models/user.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,6 +57,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await tokenRefreshInterceptor.clearToken();
       await _authRepository.clearStorage();
+      await _authRepository.clearUser();
       emit(const AuthNotConnectedWallet());
     } catch (e) {
       emit(AuthLogouError("error_log_out".tr()));
@@ -74,10 +76,15 @@ class AuthCubit extends Cubit<AuthState> {
       final String? walletAddress =
           await _authRepository.getWalletAddressFromStorage();
 
-      if (walletAddress == null) {
+      User? user = await _authRepository.getUserFromStorage();
+
+      if (walletAddress == null || user == null) {
+        await _authRepository.clearUser();
         emit(const AuthNotConnectedWallet());
         return;
       }
+
+      await _authRepository.registerSingletonUser(user);
 
       emit(AuthSuccessConnectWallet(walletAddress: walletAddress));
     } catch (e) {
@@ -126,8 +133,9 @@ class AuthCubit extends Cubit<AuthState> {
       OAuth2Token newToken = tokenToOauth2Token(token);
       await tokenRefreshInterceptor.setToken(newToken);
 
-      // User user = response.data[ProjectConstants.userData];
-      // await _authRepository.saveUser(user);
+      User user = response.data[ProjectConstants.userData];
+      await _authRepository.saveUserToStorage(user);
+      await _authRepository.registerSingletonUser(user);
 
       emit(AuthSuccessConnectWallet(walletAddress: pubkeyBase58));
     } catch (e) {

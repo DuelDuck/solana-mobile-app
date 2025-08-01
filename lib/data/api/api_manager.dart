@@ -122,38 +122,38 @@ class ApiManager {
       final deadline = DateTime.now();
 
       Future<Response> request = dio.get(
-        "/duel/all-with-joined?opts.pagination.page_size=20&opts.pagination.page_num=1&opts.order.order_by=players_count&opts.order.order_type=desc&opts.filters%5B0%5D.column=payment_type&opts.filters%5B0%5D.value=1&opts.filters%5B0%5D.operator=%3D&opts.filters%5B0%5D.where_or=false&opts.filters%5B1%5D.column=is_app_duel&opts.filters%5B1%5D.value=true&opts.filters%5B1%5D.operator=is&opts.filters%5B1%5D.where_or=false&opts.filters%5B2%5D.column=status&opts.filters%5B2%5D.value=4&opts.filters%5B2%5D.operator=%3D&opts.filters%5B2%5D.where_or=false&opts.filters%5B3%5D.column=p.user_id&opts.filters%5B3%5D.operator=is&opts.filters%5B3%5D.value=null&opts.filters%5B3%5D.where_or=false&opts.filters%5B4%5D.column=deadline&opts.filters%5B4%5D.operator=%3E&opts.filters%5B4%5D.value=$deadline&opts.filters%5B4%5D.where_or=false",
-        // queryParameters: {
-        //   'opts.pagination.page_size': 20,
-        //   'opts.pagination.page_num': 1,
-        //   'opts.order.order_by': 'players_count',
-        //   'opts.order.order_type': 'desc',
+        "/duel/all-with-joined",
+        queryParameters: {
+          'opts.pagination.page_size': 20,
+          'opts.pagination.page_num': 1,
+          'opts.order.order_by': 'players_count',
+          'opts.order.order_type': 'desc',
 
-        //   'opts.filters[0].column': 'payment_type',
-        //   'opts.filters[0].value': 1,
-        //   'opts.filters[0].operator': '=',
-        //   'opts.filters[0].where_or': false,
+          'opts.filters[0].column': 'payment_type',
+          'opts.filters[0].value': 1,
+          'opts.filters[0].operator': '=',
+          'opts.filters[0].where_or': false,
 
-        //   'opts.filters[1].column': 'is_app_duel',
-        //   'opts.filters[1].value': true,
-        //   'opts.filters[1].operator': 'is',
-        //   'opts.filters[1].where_or': false,
+          'opts.filters[1].column': 'is_app_duel',
+          'opts.filters[1].value': true,
+          'opts.filters[1].operator': 'is',
+          'opts.filters[1].where_or': false,
 
-        //   'opts.filters[2].column': 'status',
-        //   'opts.filters[2].value': 4,
-        //   'opts.filters[2].operator': '=',
-        //   'opts.filters[2].where_or': false,
+          'opts.filters[2].column': 'status',
+          'opts.filters[2].value': 4,
+          'opts.filters[2].operator': '=',
+          'opts.filters[2].where_or': false,
 
-        //   'opts.filters[3].column': 'p.user_id',
-        //   'opts.filters[3].operator': 'is',
-        //   'opts.filters[3].value': null,
-        //   'opts.filters[3].where_or': false,
+          'opts.filters[3].column': 'p.user_id',
+          'opts.filters[3].value': null,
+          'opts.filters[3].operator': 'is',
+          'opts.filters[3].where_or': false,
 
-        //   'opts.filters[4].column': 'deadline',
-        //   'opts.filters[4].operator': '>',
-        //   'opts.filters[4].value': "${deadline.toIso8601String()}Z",
-        //   'opts.filters[4].where_or': false,
-        // },
+          'opts.filters[4].column': 'deadline',
+          'opts.filters[4].value': '${deadline.toIso8601String()}Z',
+          'opts.filters[4].operator': '>',
+          'opts.filters[4].where_or': false,
+        },
       );
       return await ApiResponse.executeResponse(request: request);
     } catch (e) {
@@ -198,6 +198,40 @@ class ApiManager {
     } catch (e) {
       debugPrint(e.toString());
       return ApiResponse(data: null, errorMessage: "error_join_to_duel".tr());
+    }
+  }
+
+  Future<ApiResponse> getAllMyDuels() async {
+    try {
+      Future<Response> request = dio.get(
+        "/duel/participating",
+        queryParameters: {
+          'opts.pagination.page_size': 20,
+          'opts.pagination.page_num': 1,
+          'opts.order.order_by': 'created_at',
+          'opts.order.order_type': 'desc',
+        },
+      );
+      return await ApiResponse.executeResponse(request: request);
+    } catch (e) {
+      debugPrint(e.toString());
+      return ApiResponse(data: null, errorMessage: "error_get_my_duels".tr());
+    }
+  }
+
+  Future<ApiResponse> resolveDuel({
+    required int answer,
+    required String duelId,
+  }) async {
+    try {
+      Future<Response> request = dio.post(
+        "/crypto-duel/app/resolve",
+        data: {"answer": answer, "duel_id": duelId},
+      );
+      return await ApiResponse.executeResponse(request: request);
+    } catch (e) {
+      debugPrint(e.toString());
+      return ApiResponse(data: null, errorMessage: "error_resolve_duel".tr());
     }
   }
 }
