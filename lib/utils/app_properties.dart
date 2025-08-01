@@ -9,4 +9,5 @@ class AppProperties {
   // DEV
   static const String domain = "https://api-stage.duelduck.com";
   static const String mediaUrl = "https://stage.duelduck.com/media/";
+  static const String shareUrl = "https://stage.duelduck.com/shareDuel/";
 }

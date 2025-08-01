@@ -30,6 +30,10 @@ class _AddDuelScreenState extends State<AddDuelScreen> {
                       onVote:
                           (model) =>
                               context.read<AddDuelCubit>().createDuel(model),
+                      onShare:
+                          () => context.read<AddDuelCubit>().copyShareLink(
+                            state.createDuelModel!.id,
+                          ),
                     )
                     : DuelSettings(
                       createDuelModel: state.createDuelModel,

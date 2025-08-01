@@ -37,6 +37,7 @@ class CreateDuelModel extends BaseDuelModel {
   final String? subtopic;
   final String? topic;
   final String? tournamentId;
+  final String? id;
 
   CreateDuelModel({
     this.answer,
@@ -57,6 +58,7 @@ class CreateDuelModel extends BaseDuelModel {
     this.subtopic,
     this.topic = "custom",
     this.tournamentId,
+    this.id,
   });
 
   CreateDuelModel copyWith({
@@ -78,6 +80,7 @@ class CreateDuelModel extends BaseDuelModel {
     String? subtopic,
     String? topic,
     String? tournamentId,
+    String? id,
   }) => CreateDuelModel(
     answer: answer ?? this.answer,
     bgUrl: bgUrl ?? this.bgUrl,
@@ -97,6 +100,7 @@ class CreateDuelModel extends BaseDuelModel {
     subtopic: subtopic ?? this.subtopic,
     topic: topic ?? this.topic,
     tournamentId: tournamentId ?? this.tournamentId,
+    id: id ?? this.id,
   );
 
   factory CreateDuelModel.fromJson(Map<String, dynamic> json) {
@@ -122,6 +126,7 @@ class CreateDuelModel extends BaseDuelModel {
       subtopic: json["subtopic"] ?? "",
       topic: json["topic"] ?? "",
       tournamentId: json["tournament_id"] ?? "",
+      id: json["id"],
     );
   }
 
