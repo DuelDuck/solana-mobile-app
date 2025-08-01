@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:duelduck_solana/data/repositories/models/user.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,13 +11,16 @@ import 'package:duelduck_solana/ui/widgets/text/custom_text.dart';
 import 'package:duelduck_solana/utils/constants.dart';
 
 class StatsWidget extends StatefulWidget {
-  const StatsWidget({super.key});
+  final User user;
+  final Function(String) onSubmitted;
+  const StatsWidget({super.key, required this.user, required this.onSubmitted});
 
   @override
   State<StatsWidget> createState() => _StatsWidgetState();
 }
 
 class _StatsWidgetState extends State<StatsWidget> {
+  late User user;
   late TextEditingController _usernameController;
 
   XFile? _selectedAvatar;
@@ -24,95 +28,98 @@ class _StatsWidgetState extends State<StatsWidget> {
   @override
   void initState() {
     super.initState();
-    _usernameController = TextEditingController(text: "user12212");
+    user = widget.user;
+    _usernameController = TextEditingController(text: user.username);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 20),
-        _buildAvatar(),
-        SizedBox(height: 24),
-        _buildUsernameField(),
-        const SizedBox(height: 16),
-        Row(
-          children: [
-            _builbStatsCard(
-              title: "profile_screen_tab_stats_total_win".tr(),
-              value: Row(
-                children: [
-                  _buildUsdcIcon(),
-                  const SizedBox(width: 12),
-                  CustomText.basic(
-                    text: "1562",
-                    style: ProjectFonts.headerRegular,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 8),
-            _builbStatsCard(
-              title: "profile_screen_tab_stats_my_fee".tr(),
-              value: CustomText.basic(
-                text: "+1111",
-                style: ProjectFonts.headerRegular.copyWith(
-                  color: ProjectColors.green,
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Row(
-          children: [
-            _builbStatsCard(
-              title: "profile_screen_tab_stats_duels_win".tr(),
-              value: CustomText.basic(
-                text: "+1562",
-                style: ProjectFonts.headerRegular.copyWith(
-                  color: ProjectColors.green,
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            _builbStatsCard(
-              title: "profile_screen_tab_stats_duels_lost".tr(),
-              value: CustomText.basic(
-                text: "-1562",
-                style: ProjectFonts.headerRegular.copyWith(
-                  color: ProjectColors.red,
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 28),
-        GestureDetector(
-          onTap: () => _launchURL(),
-          behavior: HitTestBehavior.opaque,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(height: 20),
+          _buildAvatar(),
+          SizedBox(height: 24),
+          _buildUsernameField(onSubmitted: widget.onSubmitted),
+          const SizedBox(height: 16),
+          Row(
             children: [
-              CustomText.basic(
-                text: "profile_screen_tab_stats_about".tr(),
-                style: ProjectFonts.bodyMedium,
-              ),
-              Container(
-                height: 24,
-                width: 24,
-                decoration: BoxDecoration(
-                  color: ProjectColors.greyBlack,
-                  shape: BoxShape.circle,
+              _builbStatsCard(
+                title: "profile_screen_tab_stats_total_win".tr(),
+                value: Row(
+                  children: [
+                    _buildUsdcIcon(),
+                    const SizedBox(width: 12),
+                    CustomText.basic(
+                      text: "1562",
+                      style: ProjectFonts.headerRegular,
+                    ),
+                  ],
                 ),
-                padding: EdgeInsets.all(5),
-                alignment: Alignment.center,
-                child: SvgPicture.asset(ProjectSource.arrowRightTop),
+              ),
+              const SizedBox(width: 8),
+              _builbStatsCard(
+                title: "profile_screen_tab_stats_my_fee".tr(),
+                value: CustomText.basic(
+                  text: "+1111",
+                  style: ProjectFonts.headerRegular.copyWith(
+                    color: ProjectColors.green,
+                  ),
+                ),
               ),
             ],
           ),
-        ),
-      ],
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              _builbStatsCard(
+                title: "profile_screen_tab_stats_duels_win".tr(),
+                value: CustomText.basic(
+                  text: "+1562",
+                  style: ProjectFonts.headerRegular.copyWith(
+                    color: ProjectColors.green,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              _builbStatsCard(
+                title: "profile_screen_tab_stats_duels_lost".tr(),
+                value: CustomText.basic(
+                  text: "-1562",
+                  style: ProjectFonts.headerRegular.copyWith(
+                    color: ProjectColors.red,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 28),
+          GestureDetector(
+            onTap: () => _launchURL(),
+            behavior: HitTestBehavior.opaque,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomText.basic(
+                  text: "profile_screen_tab_stats_about".tr(),
+                  style: ProjectFonts.bodyMedium,
+                ),
+                Container(
+                  height: 24,
+                  width: 24,
+                  decoration: BoxDecoration(
+                    color: ProjectColors.greyBlack,
+                    shape: BoxShape.circle,
+                  ),
+                  padding: EdgeInsets.all(5),
+                  alignment: Alignment.center,
+                  child: SvgPicture.asset(ProjectSource.arrowRightTop),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -184,7 +191,7 @@ class _StatsWidgetState extends State<StatsWidget> {
     }
   }
 
-  _buildUsernameField() {
+  _buildUsernameField({required Function(String) onSubmitted}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -196,8 +203,9 @@ class _StatsWidgetState extends State<StatsWidget> {
         CustomTextField.outline(
           controller: _usernameController,
           hint: "",
+          maxLength: 17,
           onChanged: (name) {},
-          onSubmitted: (name) {},
+          onSubmitted: (name) => onSubmitted(name),
         ),
       ],
     );

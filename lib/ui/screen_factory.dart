@@ -1,6 +1,7 @@
 import 'package:duelduck_solana/bloc/add_duel_cubit/add_duel_cubit.dart';
 import 'package:duelduck_solana/bloc/duels_cubit/duels_cubit.dart';
 import 'package:duelduck_solana/bloc/home_cubit/home_cubit.dart';
+import 'package:duelduck_solana/bloc/profile_cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,7 +43,10 @@ class ScreenFactory {
   }
 
   Widget profileScreen(BuildContext context, GoRouterState state) {
-    return const ProfileScreen();
+    return BlocProvider(
+      create: (context) => ProfileCubit()..loadProfile(),
+      child: const ProfileScreen(),
+    );
   }
 
   Widget noInternetConnectionScreen(BuildContext context, GoRouterState state) {

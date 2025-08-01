@@ -58,7 +58,35 @@ class ApiManager {
       return await ApiResponse.executeResponse(request: request);
     } catch (e) {
       debugPrint(e.toString());
-      return ApiResponse(data: null, errorMessage: "error_connect_wallet".tr());
+      return ApiResponse(data: null, errorMessage: "error_get_user".tr());
+    }
+  }
+
+  Future<ApiResponse> getUserLeaderboardRank() async {
+    try {
+      Future<Response> request = dio.get(
+        "/duel/user-rank?opts.filters%5B0%5D.column=payment_type&opts.filters%5B0%5D.operator==&opts.filters%5B0%5D.value=1&opts.filters%5B0%5D.where_or=false",
+      );
+      return await ApiResponse.executeResponse(request: request);
+    } catch (e) {
+      debugPrint(e.toString());
+      return ApiResponse(data: null, errorMessage: "error_get_user".tr());
+    }
+  }
+
+  Future<ApiResponse> changeUserName(String newName) async {
+    try {
+      Future<Response> request = dio.put(
+        "/user/username",
+        data: {"username": newName},
+      );
+      return await ApiResponse.executeResponse(request: request);
+    } catch (e) {
+      debugPrint(e.toString());
+      return ApiResponse(
+        data: null,
+        errorMessage: "error_change_user_name".tr(),
+      );
     }
   }
 
