@@ -41,58 +41,59 @@ class _StatsWidgetState extends State<StatsWidget> {
           _buildAvatar(),
           SizedBox(height: 24),
           _buildUsernameField(onSubmitted: widget.onSubmitted),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              _builbStatsCard(
-                title: "profile_screen_tab_stats_total_win".tr(),
-                value: Row(
-                  children: [
-                    _buildUsdcIcon(),
-                    const SizedBox(width: 12),
-                    CustomText.basic(
-                      text: "1562",
-                      style: ProjectFonts.headerRegular,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              _builbStatsCard(
-                title: "profile_screen_tab_stats_my_fee".tr(),
-                value: CustomText.basic(
-                  text: "+1111",
-                  style: ProjectFonts.headerRegular.copyWith(
-                    color: ProjectColors.green,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              _builbStatsCard(
-                title: "profile_screen_tab_stats_duels_win".tr(),
-                value: CustomText.basic(
-                  text: "+1562",
-                  style: ProjectFonts.headerRegular.copyWith(
-                    color: ProjectColors.green,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              _builbStatsCard(
-                title: "profile_screen_tab_stats_duels_lost".tr(),
-                value: CustomText.basic(
-                  text: "-1562",
-                  style: ProjectFonts.headerRegular.copyWith(
-                    color: ProjectColors.red,
-                  ),
-                ),
-              ),
-            ],
-          ),
+          // TODO: stats widget, will fix the backend
+          // const SizedBox(height: 16),
+          // Row(
+          //   children: [
+          //     _builbStatsCard(
+          //       title: "profile_screen_tab_stats_total_win".tr(),
+          //       value: Row(
+          //         children: [
+          //           _buildUsdcIcon(),
+          //           const SizedBox(width: 12),
+          //           CustomText.basic(
+          //             text: "1562",
+          //             style: ProjectFonts.headerRegular,
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //     const SizedBox(width: 8),
+          //     _builbStatsCard(
+          //       title: "profile_screen_tab_stats_my_fee".tr(),
+          //       value: CustomText.basic(
+          //         text: "+1111",
+          //         style: ProjectFonts.headerRegular.copyWith(
+          //           color: ProjectColors.green,
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // const SizedBox(height: 8),
+          // Row(
+          //   children: [
+          //     _builbStatsCard(
+          //       title: "profile_screen_tab_stats_duels_win".tr(),
+          //       value: CustomText.basic(
+          //         text: "+1562",
+          //         style: ProjectFonts.headerRegular.copyWith(
+          //           color: ProjectColors.green,
+          //         ),
+          //       ),
+          //     ),
+          //     const SizedBox(width: 12),
+          //     _builbStatsCard(
+          //       title: "profile_screen_tab_stats_duels_lost".tr(),
+          //       value: CustomText.basic(
+          //         text: "-1562",
+          //         style: ProjectFonts.headerRegular.copyWith(
+          //           color: ProjectColors.red,
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
           const SizedBox(height: 28),
           GestureDetector(
             onTap: () => _launchURL(),
