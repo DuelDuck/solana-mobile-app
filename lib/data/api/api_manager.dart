@@ -62,6 +62,24 @@ class ApiManager {
     }
   }
 
+  Future<ApiResponse> getUserLeaderboardRank() async {
+    try {
+      Future<Response> request = dio.get(
+        "/duel/user-rank",
+        queryParameters: {
+          'opts.filters[0].column': 'payment_type',
+          'opts.filters[0].operator': '=',
+          'opts.filters[0].value': 1,
+          'opts.filters[0].where_or': false,
+        },
+      );
+      return await ApiResponse.executeResponse(request: request);
+    } catch (e) {
+      debugPrint(e.toString());
+      return ApiResponse(data: null, errorMessage: "error_get_user".tr());
+    }
+  }
+
   Future<ApiResponse> changeUserName(String newName) async {
     try {
       Future<Response> request = dio.put(
@@ -135,10 +153,10 @@ class ApiManager {
   // for authorized
   Future<ApiResponse> getAllWithJoinedDuels() async {
     try {
-      final deadline = DateTime.now();
+      final deadline = DateTime.now().toUtc();
 
       Future<Response> request = dio.get(
-        "/duel/all-with-joined",
+        "/duel/all-with-joined?opts.pagination.page_size=20&opts.pagination.page_num=1&opts.order.order_by=players_count&opts.order.order_type=desc&opts.filters%5B0%5D.column=payment_type&opts.filters%5B0%5D.value=1&opts.filters%5B0%5D.operator=%3D&opts.filters%5B0%5D.where_or=false&opts.filters%5B1%5D.column=is_app_duel&opts.filters%5B1%5D.value=true&opts.filters%5B1%5D.operator=is&opts.filters%5B1%5D.where_or=false&opts.filters%5B2%5D.column=status&opts.filters%5B2%5D.value=4&opts.filters%5B2%5D.operator=%3D&opts.filters%5B2%5D.where_or=false&opts.filters%5B3%5D.column=p.user_id&opts.filters%5B3%5D.operator=is&opts.filters%5B3%5D.value=null&opts.filters%5B3%5D.where_or=false&opts.filters%5B4%5D.column=deadline&opts.filters%5B4%5D.operator=%3E&opts.filters%5B4%5D.value=$deadline&opts.filters%5B4%5D.where_or=false",
         queryParameters: {
           'opts.pagination.page_size': 20,
           'opts.pagination.page_num': 1,
@@ -166,7 +184,7 @@ class ApiManager {
           'opts.filters[3].where_or': false,
 
           'opts.filters[4].column': 'deadline',
-          'opts.filters[4].value': '${deadline.toIso8601String()}Z',
+          'opts.filters[4].value': deadline.toIso8601String(),
           'opts.filters[4].operator': '>',
           'opts.filters[4].where_or': false,
         },
