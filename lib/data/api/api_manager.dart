@@ -58,7 +58,23 @@ class ApiManager {
       return await ApiResponse.executeResponse(request: request);
     } catch (e) {
       debugPrint(e.toString());
-      return ApiResponse(data: null, errorMessage: "error_connect_wallet".tr());
+      return ApiResponse(data: null, errorMessage: "error_get_user".tr());
+    }
+  }
+
+  Future<ApiResponse> changeUserName(String newName) async {
+    try {
+      Future<Response> request = dio.put(
+        "/user/username",
+        data: {"username": newName},
+      );
+      return await ApiResponse.executeResponse(request: request);
+    } catch (e) {
+      debugPrint(e.toString());
+      return ApiResponse(
+        data: null,
+        errorMessage: "error_change_user_name".tr(),
+      );
     }
   }
 

@@ -88,5 +88,8 @@
     "duels_screen_pending_tab": "Pending",
     "duels_screen_done_tab": "Done",
     "error_get_my_duels": "Error get my duels",
-    "error_resolve_duel": "Error resolve duel"
+    "error_resolve_duel": "Error resolve duel",
+    "error_get_user": "Error get user",
+    "profile_screen_title": "Profile",
+    "error_change_user_name": "Error change username"
 }
