@@ -60,6 +60,7 @@ class SolanaManager {
 
   Future<String?> signAndSendBase64Transaction(String base64Tx) async {
     final decodedTx = SignedTx.decode(base64Tx);
+    print(decodedTx);
 
     final scenario = await LocalAssociationScenario.create();
     scenario.startActivityForResult(null).ignore();

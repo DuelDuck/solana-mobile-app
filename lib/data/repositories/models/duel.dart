@@ -90,7 +90,7 @@ class CreateDuelModel extends BaseDuelModel {
 
   factory CreateDuelModel.fromJson(Map<String, dynamic> json) {
     return CreateDuelModel(
-      answer: json["answer"] ?? 0,
+      answer: json["answer"],
       bgUrl: json["bg_url"] ?? "",
       commission: json["commission"] ?? 0,
       deadline: DateTime.tryParse(json["deadline"] ?? "") ?? DateTime.now(),
@@ -146,38 +146,38 @@ DuelModel duelModelFromJson(String str) => DuelModel.fromJson(json.decode(str));
 String duelModelToJson(DuelModel data) => json.encode(data.toJson());
 
 class DuelModel extends BaseDuelModel {
-  final String approvedBy;
-  final String bgUrl;
-  final String cancellationReason;
+  final String? approvedBy;
+  final String? bgUrl;
+  final String? cancellationReason;
   final int commission;
-  final DateTime createdAt;
-  final DateTime deadline;
-  final DuelInfo duelInfo;
+  final DateTime? createdAt;
+  final DateTime? deadline;
+  final DuelInfo? duelInfo;
   final int duelPrice;
-  final String duelType;
-  final List<int> entities;
-  final DateTime eventDate;
+  final String? duelType;
+  final List<int>? entities;
+  final DateTime? eventDate;
   final int? finalResult;
   final String id;
-  final String imageUrl;
-  final bool joined;
+  final String? imageUrl;
+  final bool? joined;
   final int noCount;
-  final String ownerId;
-  final int paymentType;
-  final int playerStatus;
+  final String? ownerId;
+  final int? paymentType;
+  final int? playerStatus;
   final int playersCount;
   final String question;
-  final int refundedPlayersCount;
+  final int? refundedPlayersCount;
   final String resolvedBy;
-  final int roomNumber;
-  final String sourceOfTruth;
-  final int status;
-  final String subtopic;
-  final String topic;
-  final String tournamentId;
-  final DateTime updatedAt;
-  final String username;
-  final int winnersCount;
+  final int? roomNumber;
+  final String? sourceOfTruth;
+  final int? status;
+  final String? subtopic;
+  final String? topic;
+  final String? tournamentId;
+  final DateTime? updatedAt;
+  final String? username;
+  final int? winnersCount;
   final int yesCount;
   final int? yourAnswer;
 
@@ -218,42 +218,117 @@ class DuelModel extends BaseDuelModel {
     required this.yourAnswer,
   });
 
+  DuelModel copyWith({
+    String? approvedBy,
+    String? bgUrl,
+    String? cancellationReason,
+    int? commission,
+    DateTime? createdAt,
+    DateTime? deadline,
+    DuelInfo? duelInfo,
+    int? duelPrice,
+    String? duelType,
+    List<int>? entities,
+    DateTime? eventDate,
+    int? finalResult,
+    String? id,
+    String? imageUrl,
+    bool? joined,
+    int? noCount,
+    String? ownerId,
+    int? paymentType,
+    int? playerStatus,
+    int? playersCount,
+    String? question,
+    int? refundedPlayersCount,
+    String? resolvedBy,
+    int? roomNumber,
+    String? sourceOfTruth,
+    int? status,
+    String? subtopic,
+    String? topic,
+    String? tournamentId,
+    DateTime? updatedAt,
+    String? username,
+    int? winnersCount,
+    int? yesCount,
+    int? yourAnswer,
+  }) => DuelModel(
+    approvedBy: approvedBy ?? this.approvedBy,
+    bgUrl: bgUrl ?? this.bgUrl,
+    cancellationReason: cancellationReason ?? this.cancellationReason,
+    commission: commission ?? this.commission,
+    createdAt: createdAt ?? this.createdAt,
+    deadline: deadline ?? this.deadline,
+    duelInfo: duelInfo ?? this.duelInfo,
+    duelPrice: duelPrice ?? this.duelPrice,
+    duelType: duelType ?? this.duelType,
+    entities: entities ?? this.entities,
+    eventDate: eventDate ?? this.eventDate,
+    finalResult: finalResult ?? this.finalResult,
+    id: id ?? this.id,
+    imageUrl: imageUrl ?? this.imageUrl,
+    joined: joined ?? this.joined,
+    noCount: noCount ?? this.noCount,
+    ownerId: ownerId ?? this.ownerId,
+    paymentType: paymentType ?? this.paymentType,
+    playerStatus: playerStatus ?? this.playerStatus,
+    playersCount: playersCount ?? this.playersCount,
+    question: question ?? this.question,
+    refundedPlayersCount: refundedPlayersCount ?? this.refundedPlayersCount,
+    resolvedBy: resolvedBy ?? this.resolvedBy,
+    roomNumber: roomNumber ?? this.roomNumber,
+    sourceOfTruth: sourceOfTruth ?? this.sourceOfTruth,
+    status: status ?? this.status,
+    subtopic: subtopic ?? this.subtopic,
+    topic: topic ?? this.topic,
+    tournamentId: tournamentId ?? this.tournamentId,
+    updatedAt: updatedAt ?? this.updatedAt,
+    username: username ?? this.username,
+    winnersCount: winnersCount ?? this.winnersCount,
+    yesCount: yesCount ?? this.yesCount,
+    yourAnswer: yourAnswer ?? this.yourAnswer,
+  );
+
   factory DuelModel.fromJson(Map<String, dynamic> json) {
     return DuelModel(
-      approvedBy: json["approved_by"] ?? "",
-      bgUrl: json["bg_url"] ?? "",
-      cancellationReason: json["cancellation_reason"] ?? "",
-      commission: json["commission"] ?? 0,
-      createdAt: DateTime.parse(json["created_at"]),
-      deadline: DateTime.parse(json["deadline"]),
-      duelInfo: DuelInfo.fromJson(json['duel_info']),
-      duelPrice: json["duel_price"] ?? 0,
-      duelType: json["duel_type"] ?? "",
-      entities: List<int>.from(json["entities"] ?? []),
-      eventDate: DateTime.parse(json["event_date"]),
-      finalResult: json["final_result"] ?? 0,
-      id: json["id"] ?? "",
-      imageUrl: json["image_url"] ?? "",
-      joined: json["joined"] ?? false,
+      approvedBy: json["approved_by"],
+      bgUrl: json["bg_url"],
+      cancellationReason: json["cancellation_reason"],
+      commission: json["commission"],
+      createdAt: DateTime.parse(json["created_at"]).toLocal(),
+      deadline: DateTime.parse(json["deadline"]).toLocal(),
+      duelInfo:
+          json['duel_info'] != null
+              ? DuelInfo.fromJson(json['duel_info'])
+              : null,
+      duelPrice: json["duel_price"],
+      duelType: json["duel_type"],
+      entities: List<int>.from(json["entities"]),
+      eventDate: DateTime.parse(json["event_date"]).toLocal(),
+      finalResult: json["final_result"],
+      id: json["id"],
+      imageUrl: json["image_url"],
+      joined: json["joined"],
       noCount: json["no_count"] ?? 0,
-      ownerId: json["owner_id"] ?? "",
-      paymentType: json["payment_type"] ?? 0,
-      playerStatus: json["player_status"] ?? 0,
+      ownerId: json["owner_id"],
+      paymentType: json["payment_type"],
+      playerStatus: json["player_status"],
       playersCount: json["players_count"] ?? 0,
-      question: json["question"] ?? "",
-      refundedPlayersCount: json["refunded_players_count"] ?? 0,
+      question: json["question"],
+      refundedPlayersCount: json["refunded_players_count"],
       resolvedBy: json["resolved_by"] ?? "",
       roomNumber: json["room_number"] ?? 0,
-      sourceOfTruth: json["source_of_truth"] ?? "",
-      status: json["status"] ?? 0,
-      subtopic: json["subtopic"] ?? "",
-      topic: json["topic"] ?? "",
-      tournamentId: json["tournament_id"] ?? "",
+      sourceOfTruth: json["source_of_truth"],
+      status: json["status"],
+      subtopic: json["subtopic"],
+      topic: json["topic"],
+      tournamentId: json["tournament_id"],
       updatedAt: DateTime.parse(json["updated_at"]),
-      username: json["username"] ?? "",
-      winnersCount: json["winners_count"] ?? 0,
+      username: json["username"],
+      winnersCount: json["winners_count"],
       yesCount: json["yes_count"] ?? 0,
-      yourAnswer: json["your_answer"] ?? 0,
+      yourAnswer: json["your_answer"],
     );
   }
 
@@ -262,9 +337,9 @@ class DuelModel extends BaseDuelModel {
     "bg_url": bgUrl,
     "cancellation_reason": cancellationReason,
     "commission": commission,
-    "created_at": createdAt.toIso8601String(),
-    "deadline": deadline.toIso8601String(),
-    "duel_info": duelInfo.toJson(),
+    "created_at": createdAt?.toIso8601String(),
+    "deadline": deadline?.toIso8601String(),
+    "duel_info": duelInfo?.toJson(),
     "duel_price": duelPrice,
     "duel_type": duelType,
     "entities": entities,
@@ -293,45 +368,6 @@ class DuelModel extends BaseDuelModel {
     "yes_count": yesCount,
     "your_answer": yourAnswer,
   };
-
-  factory DuelModel.demoData() {
-    return DuelModel(
-      approvedBy: "00000000-0000-0000-0000-000000000000",
-      bgUrl: "/admin_uploads/dcaaa068-ddad-11ef-bc5b-0242ac140005.png",
-      cancellationReason: "",
-      commission: 0,
-      createdAt: DateTime.parse("2025-07-24T00:00:00.456358Z"),
-      deadline: DateTime.parse("2025-08-27T00:00:00Z"),
-      duelInfo: DuelInfo(coinId: 5426, direction: 1, targetPrice: 110),
-      duelPrice: 1000,
-      duelType: "",
-      entities: [],
-      eventDate: DateTime.parse("2025-08-27T00:00:00Z"),
-      finalResult: null,
-      id: "fb3c6bd1-3435-4f8b-bcc1-8a995ac1654b",
-      imageUrl: "/admin_uploads/dc88e008-ddad-11ef-bc5b-0242ac140005.png",
-      joined: false,
-      noCount: 95,
-      ownerId: "914a26d1-c283-4a4f-8d2e-013c20485e03",
-      paymentType: 0,
-      playerStatus: 0,
-      playersCount: 212,
-      question: "Will Pepe ETF approved in 2025?\n",
-      refundedPlayersCount: 0,
-      resolvedBy: "00000000-0000-0000-0000-000000000000",
-      roomNumber: 0,
-      sourceOfTruth: "g.m",
-      status: 4,
-      subtopic: "Crypto",
-      topic: "custom",
-      tournamentId: "00000000-0000-0000-0000-000000000000",
-      updatedAt: DateTime.parse("2025-07-23T00:00:00Z"),
-      username: "hi",
-      winnersCount: 0,
-      yesCount: 117,
-      yourAnswer: null,
-    );
-  }
 
   @override
   String toString() {

@@ -2,10 +2,8 @@ import 'package:duelduck_solana/data/repositories/models/add_duel_repository.dar
 import 'package:duelduck_solana/data/repositories/models/duel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fresh_dio/fresh_dio.dart';
 
 import 'package:duelduck_solana/data/api/api_manager.dart';
-import 'package:duelduck_solana/data/my_token_storage.dart/my_token_storage.dart';
 import 'package:duelduck_solana/data/repositories/solana_repo.dart';
 
 part 'add_duel_state.dart';
@@ -13,10 +11,6 @@ part 'add_duel_state.dart';
 class AddDuelCubit extends Cubit<AddDuelState> {
   final SolanaRepository _solanaRepository = SolanaRepository();
   final AddDuelRepository _addDuelRepository = AddDuelRepository();
-
-  final MyTokenStorage<OAuth2Token> myStorageToken = MyTokenStorage();
-
-  late final Fresh<OAuth2Token> tokenRefreshInterceptor;
 
   AddDuelCubit() : super(const AddDuelInitial());
 
@@ -35,7 +29,7 @@ class AddDuelCubit extends Cubit<AddDuelState> {
     );
   }
 
-  createDuel(CreateDuelModel createModel) async {
+  createDuel(CreateDuelModel newCreateDuel) async {
     emit(
       AddDuelLoading(
         createDuelModel: state.createDuelModel,
@@ -45,7 +39,7 @@ class AddDuelCubit extends Cubit<AddDuelState> {
 
     try {
       ApiResponse responseTransaction = await _addDuelRepository
-          .getTransactionToCreateDuel(createModel);
+          .getTransactionToCreateDuel(newCreateDuel);
 
       if (responseTransaction.errorMessage != null) {
         emit(
@@ -76,7 +70,7 @@ class AddDuelCubit extends Cubit<AddDuelState> {
 
       ApiResponse<CreateDuelModel?> responseCreateDuel =
           await _addDuelRepository.createDuel(
-            model: createModel,
+            model: newCreateDuel,
             txHashBase58: txHashBase58,
           );
 
@@ -93,7 +87,7 @@ class AddDuelCubit extends Cubit<AddDuelState> {
 
       emit(
         AddDuelSuccessCreate(
-          createDuelModel: responseCreateDuel.data,
+          createDuelModel: newCreateDuel,
           isPublishStep: state.isPublishStep,
         ),
       );
