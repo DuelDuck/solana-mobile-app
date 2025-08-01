@@ -89,6 +89,7 @@ class AddDuelCubit extends Cubit<AddDuelState> {
 
       emit(
         AddDuelSuccessCreate(
+          isShareLinkCopied: false,
           createDuelModel: responseCreateDuel.data,
           isPublishStep: state.isPublishStep,
         ),
@@ -109,5 +110,13 @@ class AddDuelCubit extends Cubit<AddDuelState> {
 
     final String link = AppProperties.shareUrl + duelId;
     Clipboard.setData(ClipboardData(text: link));
+
+    emit(
+      AddDuelSuccessCreate(
+        isShareLinkCopied: true,
+        createDuelModel: state.createDuelModel,
+        isPublishStep: state.isPublishStep,
+      ),
+    );
   }
 }

@@ -112,16 +112,20 @@ class AddDuelErrorSignTransaction extends AddDuelState {
 }
 
 class AddDuelSuccessCreate extends AddDuelState {
+  final bool isShareLinkCopied;
   const AddDuelSuccessCreate({
+    required this.isShareLinkCopied,
     required super.createDuelModel,
     required super.isPublishStep,
   });
 
   @override
   AddDuelSuccessCreate copyWith({
+    final bool? isShareLinkCopied,
     final CreateDuelModel? createDuelModel,
     final bool? isPublishStep,
   }) => AddDuelSuccessCreate(
+    isShareLinkCopied: isShareLinkCopied ?? this.isShareLinkCopied,
     createDuelModel: createDuelModel ?? this.createDuelModel,
     isPublishStep: isPublishStep ?? this.isPublishStep,
   );
