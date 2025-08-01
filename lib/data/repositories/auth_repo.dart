@@ -21,6 +21,26 @@ class AuthRepository {
     return walletAddress;
   }
 
+  Future saveUserToStorage(User user) async {
+    await _secureStorage.save(SecureStorage.user, userModelToJson(user));
+  }
+
+  Future registerSingletonUser(User user) async {
+    getIt.registerSingleton<User>(user);
+  }
+
+  Future<User?> getUserFromStorage() async {
+    String? user = await _secureStorage.get(SecureStorage.user);
+
+    if (user == null) return null;
+
+    return userModelFromJson(user);
+  }
+
+  Future<void> clearUser() async {
+    getIt.registerSingleton<User>(User.empty());
+  }
+
   Future clearStorage() async {
     await _secureStorage.deleteAll();
   }
@@ -49,10 +69,6 @@ class AuthRepository {
       },
       errorMessage: null,
     );
-  }
-
-  Future saveUser(User user) async {
-    getIt.registerSingleton<User>(user);
   }
 
   Future<ApiResponse<Token?>> refreshToken(String refreshToken) async {

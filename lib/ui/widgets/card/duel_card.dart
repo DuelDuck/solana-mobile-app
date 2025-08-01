@@ -1,23 +1,12 @@
-import 'package:duelduck_solana/ui/widgets/card/duel_card_body.dart';
-import 'package:duelduck_solana/ui/widgets/text/gradient_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:duelduck_solana/data/repositories/models/duel.dart';
 import 'package:duelduck_solana/ui/widgets/button/custom_button.dart';
+import 'package:duelduck_solana/ui/widgets/card/duel_card_body.dart';
 import 'package:duelduck_solana/ui/widgets/text/custom_text.dart';
 import 'package:duelduck_solana/utils/constants.dart';
-
-enum DuelCardType {
-  createdByMe, // I created the card myself (displayed immediately after creation on the Add Duel screen)
-  activeToVote, // An active card that needs to be voted on
-  waitingForResult, // I have voted and the voting is pending.
-  resolvingWinner, // You need to choose a winner (Yes or No)
-  cancelled, // The card has been cancelled.
-  result, // The card is completed and the voting result is displayed.
-  expiredWithoutVote, // I didn't vote, the event is over
-}
 
 class DuelCard extends StatefulWidget {
   final DuelCardType _type;
@@ -246,11 +235,13 @@ class _ExpandableDuelCardState extends State<_ExpandableDuelCard> {
               topLeft: Radius.circular(15),
               topRight: Radius.circular(15),
               bottomLeft:
-                  widget.type == DuelCardType.activeToVote
+                  widget.type == DuelCardType.activeToVote ||
+                          widget.type == DuelCardType.refunded
                       ? Radius.circular(15)
                       : Radius.zero,
               bottomRight:
-                  widget.type == DuelCardType.activeToVote
+                  widget.type == DuelCardType.activeToVote ||
+                          widget.type == DuelCardType.refunded
                       ? Radius.circular(15)
                       : Radius.zero,
             ),
@@ -287,23 +278,33 @@ class _ExpandableDuelCardState extends State<_ExpandableDuelCard> {
           ),
         ),
         if (widget.type == DuelCardType.waitingForResult)
-          GradientText(
-            text: "duel_card_wating_for_result_title".tr(),
-            style: ProjectFonts.bodyMedium,
-            gradient: LinearGradient(
-              colors: [Colors.white, ProjectColors.gradientGrey],
+          _buildOneResultButton(
+            title: "duel_card_button_wating_for_result_title".tr(),
+            textStyle: ProjectFonts.headerRegular.copyWith(
+              color: ProjectColors.grey,
+              fontSize: 18,
+            ),
+          ),
+
+        if (widget.type == DuelCardType.cancelled)
+          _buildOneResultButton(
+            title: "duel_card_button_cancelled".tr(),
+            textStyle: ProjectFonts.headerRegular.copyWith(
+              color: ProjectColors.grey,
+              fontSize: 18,
             ),
           ),
         if (widget.type == DuelCardType.activeToVote)
           _buildTwoButtons(
             titleLeftBtn: "vote_button_no".tr(),
             titleRightBtn: "vote_button_yes".tr(),
+            cardType: widget.type,
           ),
-        if (widget.type == DuelCardType.expiredWithoutVote) SizedBox(),
-        if (widget.type == DuelCardType.waitingForResult)
+        if (widget.type == DuelCardType.pending)
           _buildTwoButtons(
             titleLeftBtn: "duel_card_button_waiting_resolver_no_wins".tr(),
             titleRightBtn: "duel_card_button_waiting_resolver_yes_wins".tr(),
+            cardType: widget.type,
           ),
         if (widget.type == DuelCardType.cancelled)
           _buildOneResultButton(
@@ -313,9 +314,12 @@ class _ExpandableDuelCardState extends State<_ExpandableDuelCard> {
               fontSize: 18,
             ),
           ),
-        if (widget.type == DuelCardType.result)
+        if (widget.type == DuelCardType.done)
           _buildOneResultButton(
-            title: "duel_card_button_yes_won".tr(),
+            title:
+                widget.model.finalResult == 1
+                    ? "duel_card_button_yes_won".tr()
+                    : "duel_card_button_no_won".tr(),
             textStyle: ProjectFonts.headerRegular.copyWith(
               color: ProjectColors.green,
               fontSize: 18,
@@ -328,7 +332,9 @@ class _ExpandableDuelCardState extends State<_ExpandableDuelCard> {
   _buildTwoButtons({
     required String titleLeftBtn,
     required String titleRightBtn,
+    required DuelCardType cardType,
   }) {
+    // final isSelectedNo =
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Row(
@@ -339,38 +345,51 @@ class _ExpandableDuelCardState extends State<_ExpandableDuelCard> {
               buttonHeight: 56,
               borderRadius: 8,
               background:
-                  widget.model.yourAnswer != null &&
-                          widget.model.yourAnswer == 0
+                  (widget.model.yourAnswer == 0 &&
+                              cardType != DuelCardType.pending) ||
+                          (cardType == DuelCardType.pending &&
+                              widget.model.finalResult == 0)
                       ? ProjectColors.red
                       : ProjectColors.black,
               borderSideColor: ProjectColors.black,
               textStyleTitle: ProjectFonts.headerRegular.copyWith(
                 color:
-                    widget.model.yourAnswer == 0
+                    (widget.model.yourAnswer == 0 &&
+                                cardType != DuelCardType.pending) ||
+                            ((cardType == DuelCardType.pending &&
+                                widget.model.finalResult == 0))
                         ? ProjectColors.backgroundDark
                         : ProjectColors.red,
                 fontSize: 20,
               ),
               onPressed: widget.pressedNo,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomText.basic(
-                    text: titleLeftBtn,
-                    style: ProjectFonts.headerRegular.copyWith(
-                      color:
-                          widget.model.yourAnswer == 0
-                              ? ProjectColors.backgroundDark
-                              : ProjectColors.red,
-                      fontSize: 20,
+              child: FittedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomText.basic(
+                      text: titleLeftBtn,
+                      style: ProjectFonts.headerRegular.copyWith(
+                        color:
+                            (widget.model.yourAnswer == 0 &&
+                                        cardType != DuelCardType.pending) ||
+                                    (cardType == DuelCardType.pending &&
+                                        widget.model.finalResult == 0)
+                                ? ProjectColors.backgroundDark
+                                : ProjectColors.red,
+                        fontSize: 20,
+                      ),
                     ),
-                  ),
-                  if (widget.model.yourAnswer == 0)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: SvgPicture.asset(ProjectSource.selectedVoteButton),
-                    ),
-                ],
+                    if (widget.model.yourAnswer == 0 &&
+                        cardType != DuelCardType.pending)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: SvgPicture.asset(
+                          ProjectSource.selectedVoteButton,
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -380,37 +399,53 @@ class _ExpandableDuelCardState extends State<_ExpandableDuelCard> {
               buttonHeight: 56,
               borderRadius: 8,
               background:
-                  widget.model.yourAnswer == 1
+                  (widget.model.yourAnswer == 1 &&
+                              cardType != DuelCardType.pending) ||
+                          (cardType == DuelCardType.pending &&
+                              widget.model.finalResult == 1)
                       ? ProjectColors.green
                       : ProjectColors.black,
               borderSideColor: ProjectColors.black,
               textStyleTitle: ProjectFonts.headerRegular.copyWith(
                 color:
-                    widget.model.yourAnswer == 1
+                    widget.model.yourAnswer == 1 &&
+                                cardType != DuelCardType.pending ||
+                            (cardType == DuelCardType.pending &&
+                                widget.model.finalResult == 1)
                         ? ProjectColors.backgroundDark
                         : ProjectColors.green,
                 fontSize: 20,
               ),
               onPressed: widget.pressedYes,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomText.basic(
-                    text: titleRightBtn,
-                    style: ProjectFonts.headerRegular.copyWith(
-                      color:
-                          widget.model.yourAnswer == 1
-                              ? ProjectColors.backgroundDark
-                              : ProjectColors.green,
-                      fontSize: 20,
+              child: FittedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomText.basic(
+                      text: titleRightBtn,
+                      style: ProjectFonts.headerRegular.copyWith(
+                        color:
+                            widget.model.yourAnswer == 1 &&
+                                        cardType != DuelCardType.pending ||
+                                    (cardType == DuelCardType.pending &&
+                                        widget.model.finalResult == 1)
+                                ? ProjectColors.backgroundDark
+                                : ProjectColors.green,
+                        fontSize: 20,
+                      ),
                     ),
-                  ),
-                  if (widget.model.yourAnswer == 1)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: SvgPicture.asset(ProjectSource.selectedVoteButton),
-                    ),
-                ],
+                    if ((widget.model.yourAnswer == 1 &&
+                            cardType != DuelCardType.pending) ||
+                        (cardType == DuelCardType.pending &&
+                            widget.model.finalResult == 1))
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: SvgPicture.asset(
+                          ProjectSource.selectedVoteButton,
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
           ),

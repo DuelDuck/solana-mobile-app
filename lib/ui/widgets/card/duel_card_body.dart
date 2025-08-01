@@ -1,5 +1,4 @@
 import 'package:duelduck_solana/ui/widgets/animation/animated_clip_rect.dart';
-import 'package:duelduck_solana/ui/widgets/card/duel_card.dart';
 import 'package:duelduck_solana/ui/widgets/tooltip/tooltip.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -202,20 +201,24 @@ class _LongCardBody extends StatelessWidget {
                   ),
                 ),
               ),
-            ] else ...[
-              // TODO: status label
-              // Positioned(
-              //   top: 16,
-              //   left: 16,
-              //   child: Container(
-              //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              //     decoration: BoxDecoration(
-              //       color: ProjectColors.backgroundDark,
-              //       borderRadius: BorderRadius.circular(100),
-              //     ),
-              //     child: ,
-              //   ),
-              // ),
+            ] else if (type == DuelCardType.refunded) ...[
+              Positioned(
+                top: 16,
+                left: 16,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: ProjectColors.green,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: CustomText.basic(
+                    text: "duel_card_label_refunded".tr(),
+                    style: ProjectFonts.bodyMedium.copyWith(
+                      color: ProjectColors.backgroundDark,
+                    ),
+                  ),
+                ),
+              ),
             ],
 
             if (type == DuelCardType.activeToVote)

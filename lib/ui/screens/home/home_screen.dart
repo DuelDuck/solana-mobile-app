@@ -55,7 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     vertical: 16,
                   ),
                   child: DuelCard.expandable(
-                    // type: duel.status, // TODO: duel
                     type: DuelCardType.activeToVote,
                     model: duel,
                     pressedYes:

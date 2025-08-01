@@ -108,7 +108,7 @@ class _PublishDuelState extends State<PublishDuel> {
                       ),
                       onPressed: () {},
                     ),
-                  ] else ...[
+                  ] else if (!widget.isLoading) ...[
                     CustomButton(
                       title: "add_duel_screen_edit_button".tr(),
                       textStyleTitle: ProjectFonts.headerRegular.copyWith(
