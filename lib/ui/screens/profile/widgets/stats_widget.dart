@@ -212,54 +212,56 @@ class _StatsWidgetState extends State<StatsWidget> {
     );
   }
 
-  _builbStatsCard({required String title, required Widget value}) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: ProjectColors.black,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomText.basic(
-              text: title,
-              style: ProjectFonts.bodyRegular.copyWith(
-                color: ProjectColors.grey,
-              ),
-            ),
-            const SizedBox(height: 8),
-            value,
-          ],
-        ),
-      ),
-    );
-  }
+  // TODO: stats widget, will fix the backend
+  // _builbStatsCard({required String title, required Widget value}) {
+  //   return Expanded(
+  //     child: Container(
+  //       padding: EdgeInsets.all(16),
+  //       decoration: BoxDecoration(
+  //         color: ProjectColors.black,
+  //         borderRadius: BorderRadius.circular(15),
+  //       ),
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           CustomText.basic(
+  //             text: title,
+  //             style: ProjectFonts.bodyRegular.copyWith(
+  //               color: ProjectColors.grey,
+  //             ),
+  //           ),
+  //           const SizedBox(height: 8),
+  //           value,
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  _buildUsdcIcon() {
-    return Container(
-      height: 20,
-      width: 20,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: ProjectColors.greyBorder,
-      ),
-      padding: EdgeInsets.all(3),
-      child: Stack(
-        children: [
-          Container(
-            margin: EdgeInsets.all(1),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-          ),
-          SvgPicture.asset(ProjectSource.usdcIcon),
-        ],
-      ),
-    );
-  }
+  // TODO: stats widget, will fix the backend
+  // _buildUsdcIcon() {
+  //   return Container(
+  //     height: 20,
+  //     width: 20,
+  //     decoration: BoxDecoration(
+  //       shape: BoxShape.circle,
+  //       color: ProjectColors.greyBorder,
+  //     ),
+  //     padding: EdgeInsets.all(3),
+  //     child: Stack(
+  //       children: [
+  //         Container(
+  //           margin: EdgeInsets.all(1),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             shape: BoxShape.circle,
+  //           ),
+  //         ),
+  //         SvgPicture.asset(ProjectSource.usdcIcon),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   _launchURL() async {
     final uri = Uri.parse(ProjectConstants.duelduckUrl);
