@@ -1,5 +1,4 @@
 import 'package:duelduck_solana/bloc/profile_cubit/profile_cubit.dart';
-import 'package:duelduck_solana/ui/screens/profile/widgets/referral_widget.dart';
 import 'package:duelduck_solana/ui/screens/profile/widgets/stats_widget.dart';
 import 'package:duelduck_solana/utils/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -51,45 +50,18 @@ class _ProfileScreenState extends State<ProfileScreen>
           return Scaffold(
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  const SizedBox(height: 16),
-                  Container(
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: ProjectColors.black,
-                      borderRadius: BorderRadius.circular(100),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    StatsWidget(
+                      user: state.user!,
+                      leaderboard: state.leaderboard!,
+                      onSubmitted:
+                          (name) =>
+                              context.read<ProfileCubit>().changeUserName(name),
                     ),
-                    child: Row(
-                      children: [
-                        _buildTabButton(
-                          "profile_screen_tab_button_stats".tr(),
-                          0,
-                        ),
-                        _buildTabButton(
-                          "profile_screen_tab_button_referral".tr(),
-                          1,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: IndexedStack(
-                      index: selectedIndex,
-                      children: [
-                        StatsWidget(
-                          user: state.user!,
-                          leaderboard: state.leaderboard!,
-                          onSubmitted:
-                              (name) => context
-                                  .read<ProfileCubit>()
-                                  .changeUserName(name),
-                        ),
-                        ReferralWidget(),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
@@ -102,44 +74,6 @@ class _ProfileScreenState extends State<ProfileScreen>
           ),
         );
       },
-    );
-  }
-
-  Widget _buildTabButton(String text, int index) {
-    final isSelected = selectedIndex == index;
-
-    return Expanded(
-      child: GestureDetector(
-        onTap: () {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          height: double.infinity,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(100),
-            border:
-                isSelected
-                    ? Border.all(color: ProjectColors.primaryYellow, width: 2)
-                    : null,
-          ),
-          child: Text(
-            text,
-            style:
-                isSelected
-                    ? ProjectFonts.bodySmall.copyWith(
-                      color: ProjectColors.primaryYellow,
-                    )
-                    : ProjectFonts.bodySmall.copyWith(
-                      color: ProjectColors.grey,
-                    ),
-          ),
-        ),
-      ),
     );
   }
 }
