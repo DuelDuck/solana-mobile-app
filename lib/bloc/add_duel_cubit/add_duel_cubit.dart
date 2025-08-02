@@ -1,4 +1,4 @@
-import 'package:duelduck_solana/data/repositories/models/add_duel_repository.dart';
+import 'package:duelduck_solana/data/repositories/add_duel_repository.dart';
 import 'package:duelduck_solana/data/repositories/models/duel.dart';
 import 'package:duelduck_solana/utils/app_properties.dart';
 import 'package:easy_localization/easy_localization.dart';

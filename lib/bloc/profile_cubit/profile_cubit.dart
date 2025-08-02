@@ -1,4 +1,5 @@
 import 'package:duelduck_solana/data/api/api_manager.dart';
+import 'package:duelduck_solana/data/repositories/models/leaderboard.dart';
 import 'package:duelduck_solana/data/repositories/models/user.dart';
 import 'package:duelduck_solana/data/repositories/profile_repository.dart';
 
@@ -12,29 +13,49 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(const ProfileInitial());
 
   loadProfile() async {
-    emit(ProfileLoading(user: state.user));
+    emit(ProfileLoading(user: state.user, leaderboard: state.leaderboard));
 
     try {
-      ApiResponse<User?> response = await _profileRepository.getUser();
+      ApiResponse<User?> responseUser = await _profileRepository.getUser();
 
-      if (response.errorMessage != null) {
+      if (responseUser.errorMessage != null) {
         emit(
           ProfileErrorGet(
-            errorMessage: response.errorMessage!,
+            errorMessage: responseUser.errorMessage!,
             user: state.user,
+            leaderboard: state.leaderboard,
           ),
         );
         return;
       }
 
-      emit(ProfileSuccessGet(user: response.data ?? User.empty()));
+      ApiResponse<Leaderboard?> responseLeaderboard =
+          await _profileRepository.getLeaderboard();
+
+      emit(
+        ProfileSuccessGet(
+          user: responseUser.data ?? User.empty(),
+          leaderboard: responseLeaderboard.data,
+        ),
+      );
     } catch (e) {
-      emit(ProfileErrorGet(errorMessage: e.toString(), user: state.user));
+      emit(
+        ProfileErrorGet(
+          errorMessage: e.toString(),
+          user: state.user,
+          leaderboard: state.leaderboard,
+        ),
+      );
     }
   }
 
   changeUserName(String newName) async {
-    emit(ProfileLoadingChangeName(user: state.user));
+    emit(
+      ProfileLoadingChangeName(
+        user: state.user,
+        leaderboard: state.leaderboard,
+      ),
+    );
 
     try {
       ApiResponse response = await _profileRepository.changeUserName(newName);
@@ -44,6 +65,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           ProfileErrorChangeName(
             errorMessage: response.errorMessage!,
             user: state.user,
+            leaderboard: state.leaderboard,
           ),
         );
         return;
@@ -51,10 +73,19 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       final updatedUser = state.user!.copyWith(username: newName);
 
-      emit(ProfileSuccessChangeName(user: updatedUser));
+      emit(
+        ProfileSuccessChangeName(
+          user: updatedUser,
+          leaderboard: state.leaderboard,
+        ),
+      );
     } catch (e) {
       emit(
-        ProfileErrorChangeName(errorMessage: e.toString(), user: state.user),
+        ProfileErrorChangeName(
+          errorMessage: e.toString(),
+          user: state.user,
+          leaderboard: state.leaderboard,
+        ),
       );
     }
   }
