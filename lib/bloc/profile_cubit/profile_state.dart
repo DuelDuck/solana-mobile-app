@@ -2,61 +2,97 @@ part of 'profile_cubit.dart';
 
 abstract class ProfileState {
   final User? user;
-  const ProfileState({required this.user});
+  final Leaderboard? leaderboard;
+  const ProfileState({required this.user, required this.leaderboard});
 
-  ProfileState copyWith({final User? user});
+  ProfileState copyWith({final User? user, final Leaderboard? leaderboard});
 }
 
 class ProfileInitial extends ProfileState {
-  const ProfileInitial({super.user});
+  const ProfileInitial({super.user, super.leaderboard});
 
   @override
-  ProfileInitial copyWith({final User? user}) =>
-      ProfileInitial(user: user ?? this.user);
+  ProfileInitial copyWith({final User? user, final Leaderboard? leaderboard}) =>
+      ProfileInitial(
+        user: user ?? this.user,
+        leaderboard: leaderboard ?? this.leaderboard,
+      );
 }
 
 class ProfileLoading extends ProfileState {
-  const ProfileLoading({required super.user});
+  const ProfileLoading({required super.user, required super.leaderboard});
 
   @override
-  ProfileLoading copyWith({final User? user}) =>
-      ProfileLoading(user: user ?? this.user);
+  ProfileLoading copyWith({final User? user, final Leaderboard? leaderboard}) =>
+      ProfileLoading(
+        user: user ?? this.user,
+        leaderboard: leaderboard ?? this.leaderboard,
+      );
 }
 
 class ProfileSuccessGet extends ProfileState {
-  const ProfileSuccessGet({required super.user});
+  const ProfileSuccessGet({required super.user, required super.leaderboard});
 
   @override
-  ProfileSuccessGet copyWith({final User? user}) =>
-      ProfileSuccessGet(user: user ?? this.user);
+  ProfileSuccessGet copyWith({
+    final User? user,
+    final Leaderboard? leaderboard,
+  }) => ProfileSuccessGet(
+    user: user ?? this.user,
+    leaderboard: leaderboard ?? this.leaderboard,
+  );
 }
 
 class ProfileErrorGet extends ProfileState {
   final String errorMessage;
-  const ProfileErrorGet({required this.errorMessage, required super.user});
+  const ProfileErrorGet({
+    required this.errorMessage,
+    required super.user,
+    required super.leaderboard,
+  });
 
   @override
-  ProfileErrorGet copyWith({final String? errorMessage, final User? user}) =>
-      ProfileErrorGet(
-        errorMessage: errorMessage ?? this.errorMessage,
-        user: user ?? this.user,
-      );
+  ProfileErrorGet copyWith({
+    final String? errorMessage,
+    final User? user,
+    final Leaderboard? leaderboard,
+  }) => ProfileErrorGet(
+    errorMessage: errorMessage ?? this.errorMessage,
+    user: user ?? this.user,
+    leaderboard: leaderboard ?? this.leaderboard,
+  );
 }
 
 class ProfileLoadingChangeName extends ProfileState {
-  const ProfileLoadingChangeName({required super.user});
+  const ProfileLoadingChangeName({
+    required super.user,
+    required super.leaderboard,
+  });
 
   @override
-  ProfileLoadingChangeName copyWith({final User? user}) =>
-      ProfileLoadingChangeName(user: user ?? this.user);
+  ProfileLoadingChangeName copyWith({
+    final User? user,
+    final Leaderboard? leaderboard,
+  }) => ProfileLoadingChangeName(
+    user: user ?? this.user,
+    leaderboard: leaderboard ?? this.leaderboard,
+  );
 }
 
 class ProfileSuccessChangeName extends ProfileState {
-  const ProfileSuccessChangeName({required super.user});
+  const ProfileSuccessChangeName({
+    required super.user,
+    required super.leaderboard,
+  });
 
   @override
-  ProfileSuccessChangeName copyWith({final User? user}) =>
-      ProfileSuccessChangeName(user: user ?? this.user);
+  ProfileSuccessChangeName copyWith({
+    final User? user,
+    final Leaderboard? leaderboard,
+  }) => ProfileSuccessChangeName(
+    user: user ?? this.user,
+    leaderboard: leaderboard ?? this.leaderboard,
+  );
 }
 
 class ProfileErrorChangeName extends ProfileState {
@@ -64,14 +100,17 @@ class ProfileErrorChangeName extends ProfileState {
   const ProfileErrorChangeName({
     required this.errorMessage,
     required super.user,
+    required super.leaderboard,
   });
 
   @override
   ProfileErrorChangeName copyWith({
     final String? errorMessage,
     final User? user,
+    final Leaderboard? leaderboard,
   }) => ProfileErrorChangeName(
     errorMessage: errorMessage ?? this.errorMessage,
     user: user ?? this.user,
+    leaderboard: leaderboard ?? this.leaderboard,
   );
 }

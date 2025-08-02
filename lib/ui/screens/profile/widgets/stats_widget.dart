@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:duelduck_solana/data/repositories/models/leaderboard.dart';
 import 'package:duelduck_solana/data/repositories/models/user.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,14 @@ import 'package:duelduck_solana/utils/constants.dart';
 
 class StatsWidget extends StatefulWidget {
   final User user;
+  final Leaderboard leaderboard;
   final Function(String) onSubmitted;
-  const StatsWidget({super.key, required this.user, required this.onSubmitted});
+  const StatsWidget({
+    super.key,
+    required this.user,
+    required this.onSubmitted,
+    required this.leaderboard,
+  });
 
   @override
   State<StatsWidget> createState() => _StatsWidgetState();
@@ -21,7 +28,10 @@ class StatsWidget extends StatefulWidget {
 
 class _StatsWidgetState extends State<StatsWidget> {
   late User user;
+  late Leaderboard leaderboard;
   late TextEditingController _usernameController;
+  late int fee;
+  late int duelsLost;
 
   XFile? _selectedAvatar;
 
@@ -29,6 +39,9 @@ class _StatsWidgetState extends State<StatsWidget> {
   void initState() {
     super.initState();
     user = widget.user;
+    leaderboard = widget.leaderboard;
+    fee = leaderboard.pnl + leaderboard.spent - leaderboard.earned;
+    duelsLost = leaderboard.totalDuels - leaderboard.victories;
     _usernameController = TextEditingController(text: user.username);
   }
 
@@ -41,59 +54,58 @@ class _StatsWidgetState extends State<StatsWidget> {
           _buildAvatar(),
           SizedBox(height: 24),
           _buildUsernameField(onSubmitted: widget.onSubmitted),
-          // TODO: stats widget, will fix the backend
-          // const SizedBox(height: 16),
-          // Row(
-          //   children: [
-          //     _builbStatsCard(
-          //       title: "profile_screen_tab_stats_total_win".tr(),
-          //       value: Row(
-          //         children: [
-          //           _buildUsdcIcon(),
-          //           const SizedBox(width: 12),
-          //           CustomText.basic(
-          //             text: "1562",
-          //             style: ProjectFonts.headerRegular,
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //     const SizedBox(width: 8),
-          //     _builbStatsCard(
-          //       title: "profile_screen_tab_stats_my_fee".tr(),
-          //       value: CustomText.basic(
-          //         text: "+1111",
-          //         style: ProjectFonts.headerRegular.copyWith(
-          //           color: ProjectColors.green,
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // const SizedBox(height: 8),
-          // Row(
-          //   children: [
-          //     _builbStatsCard(
-          //       title: "profile_screen_tab_stats_duels_win".tr(),
-          //       value: CustomText.basic(
-          //         text: "+1562",
-          //         style: ProjectFonts.headerRegular.copyWith(
-          //           color: ProjectColors.green,
-          //         ),
-          //       ),
-          //     ),
-          //     const SizedBox(width: 12),
-          //     _builbStatsCard(
-          //       title: "profile_screen_tab_stats_duels_lost".tr(),
-          //       value: CustomText.basic(
-          //         text: "-1562",
-          //         style: ProjectFonts.headerRegular.copyWith(
-          //           color: ProjectColors.red,
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              _builbStatsCard(
+                title: "profile_screen_tab_stats_total_win".tr(),
+                value: Row(
+                  children: [
+                    _buildUsdcIcon(),
+                    const SizedBox(width: 12),
+                    CustomText.basic(
+                      text: leaderboard.pnl.toString(),
+                      style: ProjectFonts.headerRegular,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              _builbStatsCard(
+                title: "profile_screen_tab_stats_my_fee".tr(),
+                value: CustomText.basic(
+                  text: fee.toString(),
+                  style: ProjectFonts.headerRegular.copyWith(
+                    color: ProjectColors.green,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              _builbStatsCard(
+                title: "profile_screen_tab_stats_duels_win".tr(),
+                value: CustomText.basic(
+                  text: leaderboard.victories.toString(),
+                  style: ProjectFonts.headerRegular.copyWith(
+                    color: ProjectColors.green,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              _builbStatsCard(
+                title: "profile_screen_tab_stats_duels_lost".tr(),
+                value: CustomText.basic(
+                  text: duelsLost.toString(),
+                  style: ProjectFonts.headerRegular.copyWith(
+                    color: ProjectColors.red,
+                  ),
+                ),
+              ),
+            ],
+          ),
           const SizedBox(height: 28),
           GestureDetector(
             onTap: () => _launchURL(),
@@ -212,56 +224,54 @@ class _StatsWidgetState extends State<StatsWidget> {
     );
   }
 
-  // TODO: stats widget, will fix the backend
-  // _builbStatsCard({required String title, required Widget value}) {
-  //   return Expanded(
-  //     child: Container(
-  //       padding: EdgeInsets.all(16),
-  //       decoration: BoxDecoration(
-  //         color: ProjectColors.black,
-  //         borderRadius: BorderRadius.circular(15),
-  //       ),
-  //       child: Column(
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: [
-  //           CustomText.basic(
-  //             text: title,
-  //             style: ProjectFonts.bodyRegular.copyWith(
-  //               color: ProjectColors.grey,
-  //             ),
-  //           ),
-  //           const SizedBox(height: 8),
-  //           value,
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
+  _builbStatsCard({required String title, required Widget value}) {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: ProjectColors.black,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomText.basic(
+              text: title,
+              style: ProjectFonts.bodyRegular.copyWith(
+                color: ProjectColors.grey,
+              ),
+            ),
+            const SizedBox(height: 8),
+            value,
+          ],
+        ),
+      ),
+    );
+  }
 
-  // TODO: stats widget, will fix the backend
-  // _buildUsdcIcon() {
-  //   return Container(
-  //     height: 20,
-  //     width: 20,
-  //     decoration: BoxDecoration(
-  //       shape: BoxShape.circle,
-  //       color: ProjectColors.greyBorder,
-  //     ),
-  //     padding: EdgeInsets.all(3),
-  //     child: Stack(
-  //       children: [
-  //         Container(
-  //           margin: EdgeInsets.all(1),
-  //           decoration: BoxDecoration(
-  //             color: Colors.white,
-  //             shape: BoxShape.circle,
-  //           ),
-  //         ),
-  //         SvgPicture.asset(ProjectSource.usdcIcon),
-  //       ],
-  //     ),
-  //   );
-  // }
+  _buildUsdcIcon() {
+    return Container(
+      height: 20,
+      width: 20,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: ProjectColors.greyBorder,
+      ),
+      padding: EdgeInsets.all(3),
+      child: Stack(
+        children: [
+          Container(
+            margin: EdgeInsets.all(1),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+          ),
+          SvgPicture.asset(ProjectSource.usdcIcon),
+        ],
+      ),
+    );
+  }
 
   _launchURL() async {
     final uri = Uri.parse(ProjectConstants.duelduckUrl);

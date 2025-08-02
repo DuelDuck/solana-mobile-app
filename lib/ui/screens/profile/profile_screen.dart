@@ -79,6 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                       children: [
                         StatsWidget(
                           user: state.user!,
+                          leaderboard: state.leaderboard!,
                           onSubmitted:
                               (name) => context
                                   .read<ProfileCubit>()
