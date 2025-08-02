@@ -1,6 +1,8 @@
 import 'package:duelduck_solana/data/repositories/models/add_duel_repository.dart';
 import 'package:duelduck_solana/data/repositories/models/duel.dart';
+import 'package:duelduck_solana/utils/app_properties.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:duelduck_solana/data/api/api_manager.dart';
@@ -87,7 +89,8 @@ class AddDuelCubit extends Cubit<AddDuelState> {
 
       emit(
         AddDuelSuccessCreate(
-          createDuelModel: newCreateDuel,
+          isShareLinkCopied: false,
+          createDuelModel: responseCreateDuel.data,
           isPublishStep: state.isPublishStep,
         ),
       );
@@ -100,5 +103,20 @@ class AddDuelCubit extends Cubit<AddDuelState> {
         ),
       );
     }
+  }
+
+  copyShareLink(String? duelId) {
+    if (duelId == null) return;
+
+    final String link = AppProperties.shareUrl + duelId;
+    Clipboard.setData(ClipboardData(text: link));
+
+    emit(
+      AddDuelSuccessCreate(
+        isShareLinkCopied: true,
+        createDuelModel: state.createDuelModel,
+        isPublishStep: state.isPublishStep,
+      ),
+    );
   }
 }

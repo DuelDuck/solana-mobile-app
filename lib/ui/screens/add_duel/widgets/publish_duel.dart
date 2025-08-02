@@ -15,6 +15,7 @@ class PublishDuel extends StatefulWidget {
   final bool isLoading;
   final Function() onEdit;
   final Function(CreateDuelModel) onVote;
+  final Function() onShare;
   const PublishDuel({
     super.key,
     required this.createDuelModel,
@@ -22,6 +23,7 @@ class PublishDuel extends StatefulWidget {
     required this.isLoading,
     required this.onEdit,
     required this.onVote,
+    required this.onShare,
   });
 
   @override
@@ -106,7 +108,7 @@ class _PublishDuelState extends State<PublishDuel> {
                           ),
                         ],
                       ),
-                      onPressed: () {},
+                      onPressed: () => widget.onShare(),
                     ),
                   ] else if (!widget.isLoading) ...[
                     CustomButton(
